@@ -1,2 +1,0 @@
-# harambe
-Harambe Game
