@@ -1,26 +1,12 @@
 body {
-	background-color: darkblue;
+    background-color: beige;
 }
 
 #stage
 {
-	width: 640px;
-	height: 640px;
-	margin-left: auto;
-	margin-right: auto;
-	background-color: black;
-}
-
-#timer
-{
-	justify-content: center;
-	color: yellow;
-}
-#Collision
-{
-	color: yellow;
-}
-#test
-{
-	color: yellow;
+    width: 640px;
+    height: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
 }
