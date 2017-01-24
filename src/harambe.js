@@ -26,9 +26,9 @@ var scene1=[
 ];
 //0=grass, 1=water
 var grass = new Image();
-grass.src = "../tiles/img/grass.png";
+grass.src = "../img/tiles/grass.png";
 var water = new Image();
-water.src = "../tiles/img/water.png";
+water.src = "../img/tiles/water.png";
 
 var player = {x:canvas.width/2, y:canvas.height/2, img:new Image()}; //player object(start location + image object)
 player.img.src = "../img/objects/player/player.png";
