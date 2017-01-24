@@ -26,12 +26,12 @@ var scene1=[
 ];
 //0=grass, 1=water
 var grass = new Image();
-grass.src = "img/grass.png";
+grass.src = "../tiles/img/grass.png";
 var water = new Image();
-water.src = "img/water.png";
+water.src = "../tiles/img/water.png";
 
 var player = {x:canvas.width/2, y:canvas.height/2, img:new Image()}; //player object(start location + image object)
-player.img.src = "img/player.png";
+player.img.src = "../img/objects/player/player.png";
 
 //game
 loadScene(scene1);
