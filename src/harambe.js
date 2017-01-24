@@ -3,13 +3,15 @@ var surface = canvas.getContext("2d");
 canvas.width = 640;
 canvas.height = 640;
 
-const SIZE=64;
+const SIZE=64; //size of each tile
 var sceneRows = 0;
 var sceneColumns = 0;
-const PLAYERSPEED = 4;
 
 //map array
 var scene =[];
+
+//obstacle array. stores impassable tile objects
+var obstacleArray =[];
 
 //map code
 var scene1=[
@@ -18,7 +20,7 @@ var scene1=[
     [0,0,0,1,1,1,0,0,0,0],
     [0,0,0,0,0,0,1,1,1,1],
     [0,0,0,0,0,0,0,1,1,1],
-    [0,0,0,1,1,1,0,0,0,0],
+    [0,0,0,1,1,0,0,0,0,0],
     [1,0,1,0,0,0,1,1,1,1],
     [0,0,0,0,0,1,0,0,0,0],
     [0,0,0,1,1,1,0,0,0,0],
@@ -30,7 +32,12 @@ grass.src = "img/grass.png";
 var water = new Image();
 water.src = "img/water.png";
 
-var player = {x:canvas.width/2, y:canvas.height/2, img:new Image()}; //player object(start location + image object)
+
+//player object
+var player = {
+    x:canvas.width/2, y:canvas.height/2, w:64, h:64, img:new Image(), playerSpeed: 4,
+    left: null, right: null, top: null, bottom: null,   //bounding boxes for collision
+    colL:false, colR:false, colT:false, colB:false};    //true when player collides
 player.img.src = "img/player.png";
 
 //game
@@ -42,7 +49,7 @@ function update()
 {
     checkInput();
     //moveTiles();
-    //checkCollision();
+    checkCollision();
     render();
 }
 
@@ -53,8 +60,6 @@ var leftPressed = false;
 var rightPressed = false;
 var upPressed = false;
 var downPressed = false;
-var lDir = 1;
-var rDir = 1;
 
 function onKeyDown(event)
 {
@@ -102,38 +107,19 @@ function onKeyUp(event)
     }
 }
 
-function checkInput()
-{
-    if (leftPressed == true)
-    {
-        if (lDir == 1)
-            lDir = -1;
-    }
-    else if (rightPressed == true)
-    {
-        if (lDir == -1)
-            lDir = 1;
-    }
-    if (upPressed == true)
-    {
-        if (rDir == -1)
-            rDir = 1;
-    }
-    else if (downPressed == true)
-    {
-        if (rDir == 1)
-            rDir = -1;
-    }
-    if ((leftPressed == true && player.x > 0) || (rightPressed == true && player.x < canvas.width-64))
-    {
-        player.x = player.x + lDir*PLAYERSPEED;
-    }
-    if ((upPressed == true && player.y > 0) || (downPressed == true && player.y < canvas.height-64))
-    {
-        player.y = player.y + -rDir*PLAYERSPEED;
-    }
+function checkInput() {
+    if (leftPressed == 1 && player.x > 0 && player.colL == false)
+        player.x -= player.playerSpeed;
+    if (rightPressed == 1 && player.x < canvas.width-64 && player.colR == false)
+        player.x += player.playerSpeed;
+    if (upPressed == 1 && player.y > 0 && player.colT == false)
+        player.y -= player.playerSpeed;
+    if (downPressed == 1 && player.y < canvas.height-64 && player.colB == false)
+        player.y += player.playerSpeed;
+    updatePlayerBounds();
 }
 
+//pass in the map code array into this function to load the scene
 function loadScene(_scene){
     sceneRows = _scene.length;
     sceneColumns = _scene[0].length;
@@ -152,9 +138,12 @@ function loadScene(_scene){
             }
             else if(_scene[row][col] == 1){
                 tile.img = water;
+                tile.w = 64;
+                tile.h = 64;
                 scene[row][col] = tile;
+                obstacleArray.push(tile); //pushing water tile object into obstacle array
             }
-            //surface.drawImage(scene[row][col].img, scene[row][col].x, scene[row][col].y)
+
         }
     }
 }
@@ -185,15 +174,53 @@ function render()
  }
  }*/
 
-/*function checkCollision() {
 
- for (var i = 0; i < obstacleArray.length; i++) {
+function updatePlayerBounds()
+{
+    // Creating the 4 individual bounding boxes for the player
+    player.left = {l:player.x, r:player.x+6, t:player.y+8, b:player.y+player.h-8 };
+    player.right = {l:player.x+player.w-6, r:player.x+player.w, t:player.y+8, b:player.y+player.h-8 };
+    player.top = {l:player.x+8, r:player.x+player.w-8, t:player.y, b:player.y+6};
+    player.bottom = {l:player.x+8, r:player.x+player.w-8, t:player.y+player.h-6, b:player.y+player.h };
+}
 
- if (!( ship.y+44 > obstacleArray[i].y + 54 || ship.y +54 < obstacleArray[i].y +14      //Top>Bot || Bot<Top
- || ship.x+24 > obstacleArray[i].x + 54 || ship.x + 44 < obstacleArray[i].x+14 )) {     //Left>Right || Right<Left
- clearInterval(game);
- clearInterval(timer);
- window.alert("game over");
- }
- }
- }*/
+function checkCollision()
+{
+    //all 4 bounding boxes of player and the obstacles are checked
+    player.colL = player.colR = player.colT = player.colB = false; //resetting collision flags to false each frame
+    for (var i = 0; i < obstacleArray.length; i++)
+    {
+        if (!(player.left.l > obstacleArray[i].x+obstacleArray[i].w || //left of left bounding box of player > right of obstacle
+            player.left.r < obstacleArray[i].x ||
+            player.left.t > obstacleArray[i].y+obstacleArray[i].h ||
+            player.left.b < obstacleArray[i].y))
+        {
+            player.x = obstacleArray[i].x+obstacleArray[i].w; // This first line will bounce the player back to just touching the wall.
+            player.colL = true; // Sets the respective collision flag to true.
+        }
+        if (!(player.right.l > obstacleArray[i].x+obstacleArray[i].w ||
+            player.right.r < obstacleArray[i].x ||
+            player.right.t > obstacleArray[i].y+obstacleArray[i].h ||
+            player.right.b < obstacleArray[i].y))
+        {
+            player.x = obstacleArray[i].x-player.w;
+            player.colR = true;
+        }
+        if (!(player.top.l > obstacleArray[i].x+obstacleArray[i].w ||
+            player.top.r < obstacleArray[i].x ||
+            player.top.t > obstacleArray[i].y+obstacleArray[i].h ||
+            player.top.b < obstacleArray[i].y))
+        {
+            player.y = obstacleArray[i].y+obstacleArray[i].h;
+            player.colT = true;
+        }
+        if (!(player.bottom.l > obstacleArray[i].x+obstacleArray[i].w ||
+            player.bottom.r < obstacleArray[i].x ||
+            player.bottom.t > obstacleArray[i].y+obstacleArray[i].h ||
+            player.bottom.b < obstacleArray[i].y))
+        {
+            player.y = obstacleArray[i].y-player.h;
+            player.colB = true;
+        }
+    }
+}
