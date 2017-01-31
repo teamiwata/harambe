@@ -3,7 +3,7 @@ var surface = canvas.getContext("2d");
 canvas.width = 640;
 canvas.height = 640;
 
-const SIZE=64; //size of each tile
+const SIZE=32; //size of each tile
 var sceneRows = 0;
 var sceneColumns = 0;
 
@@ -15,27 +15,79 @@ var obstacleArray =[];
 
 //map code
 var scene1=[
-    [1,0,1,0,0,0,1,1,1,1],
-    [0,0,0,0,0,1,0,0,0,0],
-    [0,0,0,1,1,1,0,0,0,0],
-    [0,0,0,0,0,0,1,1,1,1],
-    [0,0,0,0,0,0,0,1,1,1],
-    [0,0,0,1,1,0,0,0,0,0],
-    [1,0,1,0,0,0,1,1,1,1],
-    [0,0,0,0,0,1,0,0,0,0],
-    [0,0,0,1,1,1,0,0,0,0],
-    [0,0,0,0,0,0,1,1,1,1],
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+[1, 0, 0, 0, 0, 3, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+[1, 0, 7, 0, 0, 3, 3, 0, 1, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 1],
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 4, 0, 0, 6, 5, 0, 0, 0, 1],
+[1, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 3, 1],
+[1, 0, 0, 0, 6, 6, 6, 6, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 3, 1],
+[1, 0, 5, 0, 6, 0, 0, 0, 6, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 1],
+[1, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1],
+[1, 0, 0, 0, 0, 2, 2, 0, 0, 0, 3, 6, 0, 0, 0, 6, 6, 6, 0, 1],
+[1, 1, 1, 0, 0, 2, 2, 2, 0, 0, 3, 6, 4, 4, 4, 6, 6, 6, 0, 1],
+[1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 6, 0, 0, 0, 0, 3, 0, 0, 1],
+[1, 0, 0, 0, 0, 0, 0, 0, 6, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 1],
+[1, 0, 4, 0, 0, 6, 6, 6, 6, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 1],
+[1, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 4, 0, 4, 0, 1, 1, 1, 0, 1],
+[1, 0, 3, 3, 3, 3, 0, 0, 4, 0, 0, 4, 4, 4, 0, 0, 2, 1, 1, 1],
+[1, 0, 3, 3, 3, 3, 0, 0, 0, 4, 0, 0, 6, 0, 0, 2, 2, 0, 0, 1],
+[1, 0, 0, 0, 0, 0, 0, 6, 0, 0, 6, 0, 6, 0, 0, 2, 0, 0, 0, 1],
+[1, 0, 0, 1, 1, 0, 0, 6, 5, 0, 0, 0, 1, 0, 2, 2, 0, 0, 8, 1],
+[1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 8, 8, 1],
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
+
 //0=grass, 1=water
 var grass = new Image();
-grass.src = "../img/tiles/grass.png";
+grass.src = "../img/tiles/brick_ice.png";
 var water = new Image();
-water.src = "../img/tiles/water.png";
+water.src = "../img/tiles/bubble.png";
+
+/*
+
+var FENCE = new Image();
+FENCE.src ="../img/tiles/brick_ice.png";	
+var LAKE = new Image();
+LAKE.src = "../img/tiles/bubble.png";	
+
+
+/*
+var FENCE = 1;
+var LAKE = 2;
+var CAGE = 3;
+var BUSH = 4;
+
+var AMMO = 5;
+
+var WALL = 6;
+var START = 7;
+var EXIT = 8;
+*/
+
+
+var CAGE = new Image();
+CAGE.src = "../img/tiles/castle_jailbars.png";
+var BUSH = new Image();
+BUSH.src = "../img/tiles/castle_straw.png";
+var WALL = new Image();
+WALL.src = "../img/tiles/castle_dungeon_stone.png";
+var START = new Image();
+START.src = "../img/tiles/beds_bed_fancy.png";
+var EXIT = new Image();
+EXIT.src = "../img/tiles/beds_bed_top_bottom.png";
+		
+		
+										
+										
+					
+					
+					
+					
 
 
 //player object
 var player = {
-    x:canvas.width/2, y:canvas.height/2, w:64, h:64, img:new Image(), playerSpeed: 4,
+    x:canvas.width/2, y:canvas.height/2, w:32, h:32, img:new Image(), playerSpeed: 4,
     left: null, right: null, top: null, bottom: null,   //bounding boxes for collision
     colL:false, colR:false, colT:false, colB:false};    //true when player collides
 player.img.src = "../img/objects/player/player.png";
@@ -50,7 +102,7 @@ function update()
 {
     checkInput();
     //moveTiles();
-    checkCollision();
+    //checkCollision();
     render();
 }
 
@@ -111,11 +163,11 @@ function onKeyUp(event)
 function checkInput() {
     if (leftPressed == 1 && player.x > 0 && player.colL == false)
         player.x -= player.playerSpeed;
-    if (rightPressed == 1 && player.x < canvas.width-64 && player.colR == false)
+    if (rightPressed == 1 && player.x < canvas.width-32 && player.colR == false)
         player.x += player.playerSpeed;
     if (upPressed == 1 && player.y > 0 && player.colT == false)
         player.y -= player.playerSpeed;
-    if (downPressed == 1 && player.y < canvas.height-64 && player.colB == false)
+    if (downPressed == 1 && player.y < canvas.height-32 && player.colB == false)
         player.y += player.playerSpeed;
     updatePlayerBounds();
 }
@@ -139,8 +191,8 @@ function loadScene(_scene){
             }
             else if(_scene[row][col] == 1){
                 tile.img = water;
-                tile.w = 64;
-                tile.h = 64;
+                tile.w = 32;
+                tile.h = 32;
                 scene[row][col] = tile;
                 obstacleArray.push(tile); //pushing water tile object into obstacle array
             }
