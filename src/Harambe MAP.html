@@ -1,0 +1,177 @@
+<!doctype html>
+
+<head>
+<title> Harambe Map </title>
+<meta charset = "uft-8">
+
+
+<style>
+
+#stage
+{
+    position: relative;
+	width: 640px;
+	height: 640px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #ffcc99;
+	
+}
+
+
+.cell
+{
+	display: block;
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	
+}
+
+p
+{
+	width: 400px;
+}
+
+
+</style>
+
+<div id = "stage"></div>
+<p id = "output"></p>
+
+
+
+</head>
+
+<body>
+
+</body>
+
+
+<script>
+
+var stage = document.querySelector("#stage");
+var output = document.querySelector("#output");
+
+//2D ARRAY MAP
+var map =
+[
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+[1, 0, 0, 0, 0, 3, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+[1, 0, 7, 0, 0, 3, 3, 0, 1, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 1],
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 4, 0, 0, 6, 5, 0, 0, 0, 1],
+[1, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 3, 1],
+[1, 0, 0, 0, 6, 6, 6, 6, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 3, 1],
+[1, 0, 5, 0, 6, 0, 0, 0, 6, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 1],
+[1, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1],
+[1, 0, 0, 0, 0, 2, 2, 0, 0, 0, 3, 6, 0, 0, 0, 6, 6, 6, 0, 1],
+[1, 1, 1, 0, 0, 2, 2, 2, 0, 0, 3, 6, 4, 4, 4, 6, 6, 6, 0, 1],
+[1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 6, 0, 0, 0, 0, 3, 0, 0, 1],
+[1, 0, 0, 0, 0, 0, 0, 0, 6, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 1],
+[1, 0, 4, 0, 0, 6, 6, 6, 6, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 1],
+[1, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 4, 0, 4, 0, 1, 1, 1, 0, 1],
+[1, 0, 3, 3, 3, 3, 0, 0, 4, 0, 0, 4, 4, 4, 0, 0, 2, 1, 1, 1],
+[1, 0, 3, 3, 3, 3, 0, 0, 0, 4, 0, 0, 6, 0, 0, 2, 2, 0, 0, 1],
+[1, 0, 0, 0, 0, 0, 0, 6, 0, 0, 6, 0, 6, 0, 0, 2, 0, 0, 0, 1],
+[1, 0, 0, 1, 1, 0, 0, 6, 5, 0, 0, 0, 1, 0, 2, 2, 0, 0, 8, 1],
+[1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 8, 8, 1],
+[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+];
+
+//Assign map code for tiles
+var FENCE = 1;
+var LAKE = 2;
+var CAGE = 3;
+var BUSH = 4;
+var AMMO = 5;
+var WALL = 6;
+var START = 7;
+var EXIT = 8;
+
+//Size of each cell
+var SIZE = 32; 
+
+//The Number of rows and columns
+var ROWS = map.length;
+var COLUMNS = map[0].length;
+
+
+render();
+
+//clear stage of img tag cells from previous turns
+function render()
+{
+
+	if(stage.hasChildNodes())
+	{
+		for(var i = 0; i < ROWS * COLUMNS; i++)
+		{
+			stage.removeChild(stage.firstChild);
+		}
+
+	}
+	
+	//Render the game by loooping the map arrays
+
+	for( var row = 0; row < ROWS; row++)
+	{
+		for(var column = 0; column < COLUMNS; column++)
+		{
+			var cell = document.createElement("img");
+		
+			cell.setAttribute("class", "cell");
+		
+			stage.appendChild(cell);
+		
+			//Find the correct imafe for this map cell
+			switch(map[row][column])
+			{
+				case FENCE:
+					cell.src ="../img/tiles/brick_ice.png";
+					break;
+					
+				case LAKE:
+					cell.src = "../img/tiles/bubble.png";
+					break;
+					
+				case CAGE:
+					cell.src = "../img/tiles/castle_jailbars.png";
+					break;	
+					
+				case BUSH:
+					cell.src = "../img/tiles/castle_straw.png";
+					break;	
+					
+				case AMMO:
+					cell.src = "../img/tiles/basic_bow_loaded.png";
+					break;	
+					
+				case WALL:
+					cell.src = "../img/tiles/castle_dungeon_stone.png";
+					break;	
+					
+				case START:
+					cell.src = "../img/tiles/beds_bed_fancy.png";
+					break;		
+					
+				case EXIT:
+					cell.src = "../img/tiles/beds_bed_top_bottom.png";
+					break;		
+			}
+		
+			//position the cell
+			cell.style.top = row * SIZE + "px";
+			cell.style.left = column * SIZE + "px";
+		}
+	}
+}
+
+
+
+
+
+
+
+</script>
+
+</html>

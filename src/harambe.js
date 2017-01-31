@@ -28,9 +28,9 @@ var scene1=[
 ];
 //0=grass, 1=water
 var grass = new Image();
-grass.src = "img/grass.png";
+grass.src = "../img/tiles/grass.png";
 var water = new Image();
-water.src = "img/water.png";
+water.src = "../img/tiles/water.png";
 
 
 //player object
@@ -38,7 +38,8 @@ var player = {
     x:canvas.width/2, y:canvas.height/2, w:64, h:64, img:new Image(), playerSpeed: 4,
     left: null, right: null, top: null, bottom: null,   //bounding boxes for collision
     colL:false, colR:false, colT:false, colB:false};    //true when player collides
-player.img.src = "img/player.png";
+player.img.src = "../img/objects/player/player.png";
+
 
 //game
 loadScene(scene1);
