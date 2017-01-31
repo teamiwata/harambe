@@ -15,56 +15,36 @@ var obstacleArray =[];
 
 //map code
 var scene1=[
-[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-[1, 0, 0, 0, 0, 3, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-[1, 0, 7, 0, 0, 3, 3, 0, 1, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 1],
-[1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 4, 0, 0, 6, 5, 0, 0, 0, 1],
-[1, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 3, 1],
-[1, 0, 0, 0, 6, 6, 6, 6, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 3, 1],
-[1, 0, 5, 0, 6, 0, 0, 0, 6, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 1],
-[1, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1],
-[1, 0, 0, 0, 0, 2, 2, 0, 0, 0, 3, 6, 0, 0, 0, 6, 6, 6, 0, 1],
-[1, 1, 1, 0, 0, 2, 2, 2, 0, 0, 3, 6, 4, 4, 4, 6, 6, 6, 0, 1],
-[1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 6, 0, 0, 0, 0, 3, 0, 0, 1],
-[1, 0, 0, 0, 0, 0, 0, 0, 6, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 1],
-[1, 0, 4, 0, 0, 6, 6, 6, 6, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 1],
-[1, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 4, 0, 4, 0, 1, 1, 1, 0, 1],
-[1, 0, 3, 3, 3, 3, 0, 0, 4, 0, 0, 4, 4, 4, 0, 0, 2, 1, 1, 1],
-[1, 0, 3, 3, 3, 3, 0, 0, 0, 4, 0, 0, 6, 0, 0, 2, 2, 0, 0, 1],
-[1, 0, 0, 0, 0, 0, 0, 6, 0, 0, 6, 0, 6, 0, 0, 2, 0, 0, 0, 1],
-[1, 0, 0, 1, 1, 0, 0, 6, 5, 0, 0, 0, 1, 0, 2, 2, 0, 0, 8, 1],
-[1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 8, 8, 1],
-[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 3, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 7, 0, 0, 3, 3, 0, 1, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 4, 0, 0, 6, 5, 0, 0, 0, 1],
+    [1, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 3, 1],
+    [1, 0, 0, 0, 6, 6, 6, 6, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 3, 1],
+    [1, 0, 5, 0, 6, 0, 0, 0, 6, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 2, 2, 0, 0, 0, 3, 6, 0, 0, 0, 6, 6, 6, 0, 1],
+    [1, 1, 1, 0, 0, 2, 2, 2, 0, 0, 3, 6, 4, 4, 4, 6, 6, 6, 0, 1],
+    [1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 6, 0, 0, 0, 0, 3, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 6, 0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 4, 0, 0, 6, 6, 6, 6, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 4, 0, 4, 0, 1, 1, 1, 0, 1],
+    [1, 0, 3, 3, 3, 3, 0, 0, 4, 0, 0, 4, 4, 4, 0, 0, 2, 1, 1, 1],
+    [1, 0, 3, 3, 3, 3, 0, 0, 0, 4, 0, 0, 6, 0, 0, 2, 2, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 6, 0, 0, 6, 0, 6, 0, 0, 2, 0, 0, 0, 1],
+    [1, 0, 0, 1, 1, 0, 0, 6, 5, 0, 0, 0, 1, 0, 2, 2, 0, 0, 8, 1],
+    [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 8, 8, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
-
 //0=grass, 1=water
-var grass = new Image();
-grass.src = "../img/tiles/brick_ice.png";
-var water = new Image();
-water.src = "../img/tiles/bubble.png";
-
-/*
-
+var GRASS = new Image();
+GRASS.src = "../img/tiles/grass.png";
+var WATER = new Image();
+WATER.src = "../img/tiles/water.png";
 var FENCE = new Image();
-FENCE.src ="../img/tiles/brick_ice.png";	
+FENCE.src ="../img/tiles/brick_ice.png";
 var LAKE = new Image();
-LAKE.src = "../img/tiles/bubble.png";	
-
-
-/*
-var FENCE = 1;
-var LAKE = 2;
-var CAGE = 3;
-var BUSH = 4;
-
-var AMMO = 5;
-
-var WALL = 6;
-var START = 7;
-var EXIT = 8;
-*/
-
-
+LAKE.src = "../img/tiles/bubble.png";
 var CAGE = new Image();
 CAGE.src = "../img/tiles/castle_jailbars.png";
 var BUSH = new Image();
@@ -75,23 +55,14 @@ var START = new Image();
 START.src = "../img/tiles/beds_bed_fancy.png";
 var EXIT = new Image();
 EXIT.src = "../img/tiles/beds_bed_top_bottom.png";
-		
-		
-										
-										
-					
-					
-					
-					
 
 
 //player object
 var player = {
-    x:canvas.width/2, y:canvas.height/2, w:32, h:32, img:new Image(), playerSpeed: 4,
+    x:canvas.width/2, y:canvas.height/2, w:SIZE, h:SIZE, img:new Image(), playerSpeed: 4,
     left: null, right: null, top: null, bottom: null,   //bounding boxes for collision
     colL:false, colR:false, colT:false, colB:false};    //true when player collides
-player.img.src = "../img/objects/player/player.png";
-
+player.img.src = "../img/tiles/player.png";
 
 //game
 loadScene(scene1);
@@ -102,7 +73,7 @@ function update()
 {
     checkInput();
     //moveTiles();
-    //checkCollision();
+    checkCollision();
     render();
 }
 
@@ -163,11 +134,11 @@ function onKeyUp(event)
 function checkInput() {
     if (leftPressed == 1 && player.x > 0 && player.colL == false)
         player.x -= player.playerSpeed;
-    if (rightPressed == 1 && player.x < canvas.width-32 && player.colR == false)
+    if (rightPressed == 1 && player.x < canvas.width-SIZE && player.colR == false)
         player.x += player.playerSpeed;
     if (upPressed == 1 && player.y > 0 && player.colT == false)
         player.y -= player.playerSpeed;
-    if (downPressed == 1 && player.y < canvas.height-32 && player.colB == false)
+    if (downPressed == 1 && player.y < canvas.height-SIZE && player.colB == false)
         player.y += player.playerSpeed;
     updatePlayerBounds();
 }
@@ -186,15 +157,64 @@ function loadScene(_scene){
             tile.y = row * SIZE;
 
             if(_scene[row][col] == 0){
-                tile.img = grass;
+                tile.img = GRASS;
                 scene[row][col] = tile; //assigning temp tile object to each element of scene array
             }
             else if(_scene[row][col] == 1){
-                tile.img = water;
-                tile.w = 32;
-                tile.h = 32;
+                tile.img = WATER;
+                tile.w = SIZE;
+                tile.h = SIZE;
                 scene[row][col] = tile;
                 obstacleArray.push(tile); //pushing water tile object into obstacle array
+            }
+            else if(_scene[row][col] == 2){
+                tile.img = FENCE;
+                tile.w = SIZE;
+                tile.h = SIZE;
+                scene[row][col] = tile;
+                obstacleArray.push(tile);
+            }
+            else if(_scene[row][col] == 3){
+                tile.img = LAKE;
+                tile.w = SIZE;
+                tile.h = SIZE;
+                scene[row][col] = tile;
+                obstacleArray.push(tile);
+            }
+            else if(_scene[row][col] == 4){
+                tile.img = CAGE;
+                tile.w = SIZE;
+                tile.h = SIZE;
+                scene[row][col] = tile;
+                obstacleArray.push(tile);
+            }
+            else if(_scene[row][col] == 5){
+                tile.img = BUSH;
+                tile.w = SIZE;
+                tile.h = SIZE;
+                scene[row][col] = tile;
+                obstacleArray.push(tile);
+            }
+            else if(_scene[row][col] == 6){
+                tile.img = WALL;
+                tile.w = SIZE;
+                tile.h = SIZE;
+                scene[row][col] = tile;
+                obstacleArray.push(tile);
+            }
+            else if(_scene[row][col] == 7){
+                tile.img = START;
+                tile.w = SIZE;
+                tile.h = SIZE;
+                scene[row][col] = tile;
+                obstacleArray.push(tile);
+            }
+            else if(_scene[row][col] == 8){
+                tile.img = EXIT;
+                tile.w = SIZE;
+                tile.h = SIZE;
+                scene[row][col] = tile;
+                obstacleArray.push(tile);
             }
 
         }
@@ -215,66 +235,6 @@ function render()
     //render player
     surface.drawImage(player.img, player.x, player.y);
 }
-$(document).ready(function(){
-  var hitBtn = $('button.damage'),
-      reset = $('button.reset'),
-      hBar = $('.health-bar'),
-      bar = hBar.find('.bar'),
-      hit = hBar.find('.hit');
-  
-  hitBtn.on("click", function(){
-    var total = hBar.data('total'),
-        value = hBar.data('value');
-    
-    if (value < 0) {
-			log("you dead, reset");
-      return;
-    }
-    // max damage is essentially quarter of max life
-    var damage = Math.floor(Math.random()*total);
-    // damage = 100;
-    var newValue = value - damage;
-    // calculate the percentage of the total width
-    var barWidth = (newValue / total) * 100;
-    var hitWidth = (damage / value) * 100 + "%";
-    
-    // show hit bar and set the width
-    hit.css('width', hitWidth);
-    hBar.data('value', newValue);
-    
-    setTimeout(function(){
-      hit.css({'width': '0'});
-      bar.css('width', barWidth + "%");
-    }, 500);
-    //bar.css('width', total - value);
-    
-    log(value, damage, hitWidth);
-    
-    if( value < 0){
-      log("DEAD");
-    }
-  });
-  
-  reset.on('click', function(e){
-    hBar.data('value', hBar.data('total'));
-    
-    hit.css({'width': '0'});
-    
-		bar.css('width', '100%');
-		log("resetting health to 1000");
-  });
-});
-
-function log(_total, _damage, _hitWidth){
-  var log = $('.log');
-  
-  if(_damage !== undefined && _hitWidth !== undefined) {
-	  log.append("<div>H:"+_total+" D:"+_damage+" W:"+_hitWidth+" = " + (_total - _damage) + "</div>");
-  } else {
-    log.append("<div>"+_total+"</div>");
-  }
-};
-
 
 //move tiles
 /*function moveTiles()
