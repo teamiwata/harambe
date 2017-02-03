@@ -7,6 +7,32 @@ const SIZE=32; //size of each tile
 var sceneRows = 0;
 var sceneColumns = 0;
 
+window.addEventListener("load", loadAssets);
+var numAssets = 6;
+var assetsLoaded = 0;
+
+var states = [{enter: enterMenu, update: updateMenu, exit: exitMenu}, 	// Main menu state.
+			{enter: enterGame, update: updateGame, exit: exitGame}, 	// Game state.
+			{enter: enterHelp, update: updateHelp, exit: exitHelp}];	// Help state.
+	
+var menuBackground = new Image();
+menuBackground.src = "img/menubackground.png";
+var helpBackground = new Image();
+helpBackground.src = "img/helpbackground.png";
+	
+
+var lastState = -1;
+var currState = -1;
+
+var buttons = [{img:"img/btnStart.png", imgO:"img/btnStartO.png", x:320, y:320, w:128, h:32, over:false, click:onStartClick}, // Start button
+    {img:"img/btnHelp.png", imgO:"img/btnHelpO.png", x:100, y:512, w:128, h:32, over:false, click:onHelpClick}, // Help button
+    {img:"img/btnExit.png", imgO:"img/btnExitO.png", x:448, y:512, w:128, h:32, over:false, click:onExitClick}]; // Exit button
+
+
+var activeBtns = [];
+
+var updateIval;
+
 //map array
 var scene =[];
 
@@ -64,26 +90,17 @@ var player = {
     colL:false, colR:false, colT:false, colB:false};    //true when player collides
 player.img.src = "../img/tiles/player.png";
 
-//game
-loadScene(scene1);
-
-var game = setInterval(update, 33.34);
-
-function update()
-{
-    checkInput();
-    //moveTiles();
-    checkCollision();
-    render();
-}
-
 //inputs
 window.addEventListener("keydown", onKeyDown);
 window.addEventListener("keyup", onKeyUp);
+canvas.addEventListener("mousemove", updateMouse);
+canvas.addEventListener("click", onMouseClick);
 var leftPressed = false;
 var rightPressed = false;
 var upPressed = false;
 var downPressed = false;
+
+var mouse = {x:0, y:0};
 
 function onKeyDown(event)
 {
@@ -141,6 +158,33 @@ function checkInput() {
     if (downPressed == 1 && player.y < canvas.height-SIZE && player.colB == false)
         player.y += player.playerSpeed;
     updatePlayerBounds();
+}
+
+
+function loadAssets(event)
+{
+    for (var i = 0; i < buttons.length; i++)
+    {
+        var tempBtn = new Image();
+        tempBtn.src = buttons[i].img;
+        tempBtn.addEventListener("load", onAssetLoad);
+        buttons[i].img = tempBtn;
+        var tempBtnO = new Image();
+        tempBtnO.src = buttons[i].imgO;
+        tempBtnO.addEventListener("load", onAssetLoad);
+        buttons[i].imgO = tempBtnO;
+    }
+}
+
+function onAssetLoad(event)
+{
+    if (++assetsLoaded == numAssets)
+        initGame();
+}
+
+function initGame()
+{
+    changeState(0);
 }
 
 //pass in the map code array into this function to load the scene
@@ -221,7 +265,7 @@ function loadScene(_scene){
     }
 }
 
-function render()
+function renderGame()
 {
     //clear canvas
     surface.clearRect(0,0,canvas.width,canvas.height);
@@ -296,4 +340,153 @@ function checkCollision()
             player.colB = true;
         }
     }
+}
+
+
+
+function changeState(stateToRun)
+{
+    if (stateToRun >= 0 && stateToRun < states.length)
+    {
+        if (currState >= 0)
+        {
+            clearInterval(updateIval);
+            states[currState].exit();
+        }
+        lastState = currState;
+        currState = stateToRun;
+        states[currState].enter();
+        updateIval = setInterval(states[currState].update, 33.34);
+    }
+    else
+        console.log("Invalid stateToRun!");
+}
+
+function enterMenu()
+{
+    console.log("Entering menu state.");
+    activeBtns = [ buttons[0] ];
+}
+
+function updateMenu()
+{
+    console.log("In menu state.");
+    checkButtons();
+    surface.drawImage(menuBackground, 0, 0);
+    renderButtons();
+}
+
+function exitMenu()
+{
+    console.log("Exiting menu state.");
+}
+
+function enterGame()
+{
+    console.log("Entering game state.");
+    activeBtns = [ buttons[1], buttons[2] ];
+    loadScene(scene1);
+}
+
+function updateGame()
+{
+    console.log("In game state.");
+    checkButtons();
+    checkInput();
+    //moveTiles();
+    checkCollision();
+    renderGame();
+    renderButtons();
+}
+
+function exitGame()
+{
+    console.log("Exiting game state.");
+}
+
+function enterHelp()
+{
+    console.log("Entering help state.");
+    //background
+    activeBtns = [ buttons[2] ];
+}
+
+function updateHelp()
+{
+    console.log("In help state.");
+    checkButtons();
+    surface.drawImage(helpBackground, 0, 0);
+    renderButtons();
+}
+
+function exitHelp()
+{
+    console.log("Exiting help state.");
+}
+
+function checkButtons()
+{
+    for (var i = 0; i < activeBtns.length; i++)
+    {
+        activeBtns[i].over = false;
+        if(!(mouse.x < activeBtns[i].x ||
+            mouse.x > activeBtns[i].x+activeBtns[i].w ||
+            mouse.y < activeBtns[i].y ||
+            mouse.y > activeBtns[i].y+activeBtns[i].h))
+        {
+            activeBtns[i].over = true;
+        }
+    }
+}
+
+function onMouseClick()
+{
+    for (var i = 0; i < activeBtns.length; i++)
+    {
+        if (activeBtns[i].over == true)
+        {
+            activeBtns[i].click();
+            break;
+        }
+    }
+}
+
+function renderButtons()
+{
+    document.body.style.cursor = "default";
+    for (var i = 0; i < activeBtns.length; i++)
+    {
+        if (activeBtns[i].over == true)
+        {
+            surface.drawImage(activeBtns[i].imgO, activeBtns[i].x, activeBtns[i].y);
+            document.body.style.cursor = "pointer";
+        }
+        else
+            surface.drawImage(activeBtns[i].img, activeBtns[i].x, activeBtns[i].y);
+    }
+}
+
+function onStartClick()
+{
+    changeState(1);
+}
+
+function onHelpClick()
+{
+    changeState(2);
+}
+
+function onExitClick()
+{
+    if (currState == 1)
+        changeState(0);
+    else if (currState == 2)
+        changeState(1);
+}
+
+function updateMouse(event)
+{
+    var rect = canvas.getBoundingClientRect();
+    mouse.x = event.clientX - rect.left;
+    mouse.y = event.clientY - rect.top;
 }
