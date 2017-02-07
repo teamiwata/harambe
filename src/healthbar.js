@@ -1,6 +1,6 @@
 var display = document.getElementById('display').getContext('2d');
 var button = 100;
-drawHealthbar(display, 10, 10, 500, 50, 100, 100);
+drawHealthbar(display, 10, 10, 500, 50, 100 /*<----THIS IS THE VALUE OF THE HEATH!!!*/ , 100);
 
 function drawHealthbar(canvas, x, y, width, height, health, max_health) {
     if (health >= max_health) {health = max_health;}
