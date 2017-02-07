@@ -16,17 +16,17 @@ var states = [{enter: enterMenu, update: updateMenu, exit: exitMenu}, 	// Main m
 			{enter: enterHelp, update: updateHelp, exit: exitHelp}];	// Help state.
 	
 var menuBackground = new Image();
-menuBackground.src = "img/menubackground.png";
+menuBackground.src = "../img/menu/menubackground.png";
 var helpBackground = new Image();
-helpBackground.src = "img/helpbackground.png";
+helpBackground.src = "../img/menu/helpbackground.png";
 	
 
 var lastState = -1;
 var currState = -1;
 
-var buttons = [{img:"img/btnStart.png", imgO:"img/btnStartO.png", x:320, y:320, w:128, h:32, over:false, click:onStartClick}, // Start button
-    {img:"img/btnHelp.png", imgO:"img/btnHelpO.png", x:100, y:512, w:128, h:32, over:false, click:onHelpClick}, // Help button
-    {img:"img/btnExit.png", imgO:"img/btnExitO.png", x:448, y:512, w:128, h:32, over:false, click:onExitClick}]; // Exit button
+var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png", x:320, y:320, w:128, h:32, over:false, click:onStartClick}, // Start button
+    {img:"../img/menu/btnHelp.png", imgO:"../img/menu/btnHelpO.png", x:100, y:512, w:128, h:32, over:false, click:onHelpClick}, // Help button
+    {img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:512, w:128, h:32, over:false, click:onExitClick}]; // Exit button
 
 
 var activeBtns = [];
