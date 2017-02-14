@@ -1,7 +1,7 @@
 var canvas = document.querySelector("canvas");
 var surface = canvas.getContext("2d");
 canvas.width = 640;
-canvas.height = 640;
+canvas.height = 800;
 
 const SIZE=32; //size of each tile
 var sceneRows = 0;
@@ -25,8 +25,8 @@ var lastState = -1;
 var currState = -1;
 
 var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png", x:320, y:320, w:128, h:32, over:false, click:onStartClick}, // Start button
-    {img:"../img/menu/btnHelp.png", imgO:"../img/menu/btnHelpO.png", x:100, y:512, w:128, h:32, over:false, click:onHelpClick}, // Help button
-    {img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:512, w:128, h:32, over:false, click:onExitClick}]; // Exit button
+    {img:"../img/menu/btnHelp.png", imgO:"../img/menu/btnHelpO.png", x:100, y:720, w:128, h:32, over:false, click:onHelpClick}, // Help button
+    {img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitClick}]; // Exit button
 
 
 var activeBtns = [];
@@ -89,6 +89,9 @@ var player = {
     left: null, right: null, top: null, bottom: null,   //bounding boxes for collision
     colL:false, colR:false, colT:false, colB:false};    //true when player collides
 player.img.src = "../img/tiles/player.png";
+
+//GUI
+var currentHealth= 30;
 
 //inputs
 window.addEventListener("keydown", onKeyDown);
@@ -365,6 +368,7 @@ function changeState(stateToRun)
 function enterMenu()
 {
     console.log("Entering menu state.");
+	surface.clearRect(0,0,canvas.width,canvas.height);
     activeBtns = [ buttons[0] ];
 }
 
@@ -397,6 +401,7 @@ function updateGame()
     checkCollision();
     renderGame();
     renderButtons();
+    renderUI();
 }
 
 function exitGame()
@@ -407,13 +412,14 @@ function exitGame()
 function enterHelp()
 {
     console.log("Entering help state.");
-    //background
+    surface.clearRect(0,0,canvas.width,canvas.height);
     activeBtns = [ buttons[2] ];
 }
 
 function updateHelp()
 {
     console.log("In help state.");
+	surface.clearRect(0,0,canvas.width,canvas.height);
     checkButtons();
     surface.drawImage(helpBackground, 0, 0);
     renderButtons();
@@ -489,4 +495,31 @@ function updateMouse(event)
     var rect = canvas.getBoundingClientRect();
     mouse.x = event.clientX - rect.left;
     mouse.y = event.clientY - rect.top;
+}
+
+
+
+
+//Jackson's code. This section is reserved for Jackson
+function renderUI(){
+    drawHealthbar(surface, 10, 10, 500, 50, currentHealth, 100);
+}
+
+function drawHealthbar(canvas, x, y, width, height, _currentHealth, max_health) {
+    if (_currentHealth >= max_health) {_currentHealth = max_health;}
+    if (_currentHealth <= 0) {_currentHealth = 0;}
+    canvas.fillStyle = "#000000";
+    canvas.fillRect(x, y+640, width, height);
+    var colorNumber = Math.round((1-(_currentHealth/max_health))*0xff)*0x10000 + Math.round((_currentHealth/max_health)*0xff)*0x100;
+    var colorString = colorNumber.toString (16);
+    if (colorNumber >= 0x100000){
+        canvas.fillStyle = '#'+ colorString;
+    }
+    else if (colorNumber << 0x100000 && colorNumber >= 0x10000){
+        canvas.fillStyle = '#0'+ colorString;
+    }
+    else if (colorNumber << 0x1000){
+        canvas.fillStyle = '#00'+ colorString;
+    }
+    canvas.fillRect(x+1, y+1+640, (_currentHealth/max_health)*(width-2), height-2);
 }
