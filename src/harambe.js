@@ -365,7 +365,6 @@ function renderGame()
 
     //render player
     surface.drawImage(player.img, player.x, player.y);
-	//textBox();
 }
 
 //move tiles
