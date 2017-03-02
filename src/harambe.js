@@ -7,8 +7,6 @@ const SIZE=32; //size of each tile
 var sceneRows = 0;
 var sceneColumns = 0;
 
-
-
 window.addEventListener("load", loadAssets);
 var numAssets = 6;
 var assetsLoaded = 0;
@@ -43,7 +41,6 @@ var obstacleArray =[];
 
 //map code
 var scene1=[
-
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 3, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 7, 0, 0, 3, 3, 0, 1, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 1],
