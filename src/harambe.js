@@ -600,5 +600,3 @@ function clickHandler() {
 }
 var textarea = document.querySelector("textarea");
 playerInventory = Inventory();
-player = {};
-
