@@ -551,7 +551,7 @@ Inventory = function(){
             }
         }
     };
-    self.haveItem = function (id, amount) {
+    self.hasItem = function (id, amount) {
         for(var i = 0; i < self.items.length; i++){
             if(self.items[i].id === id){
                 return self.items[i].amount >= amount;
@@ -562,7 +562,7 @@ Inventory = function(){
     self.refreshRender = function () {
         var str = "";
         for(var i = 0; i < self.items.length; i++){
-           item = Item.List[self.items[i].id];
+           let item = Item.List[self.items[i].id];
            onclick = "Item.List['"+ item.id +"'].event()";
             str += "<button onclick=\"\">" + item.name + " x" + self.items[i].amount +"</button><br>";
         }
@@ -585,3 +585,20 @@ Item("banana", "Banana",function () {
     currentHealth += 15;
     Inventory.removeItem("banana",1)
 });
+Item("mj", "MJ",function () {
+    currentHealth += 15;
+    Inventory.removeItem("mj",1)
+});
+
+var button = document.querySelector("button");
+button.addEventListener("click", clickHandler, false);
+
+function clickHandler() {
+    playerInventory.addItem("banana",1)
+	playerInventory.addItem("mj",5)
+	playerInventory.removeItem("mj",1)
+}
+var textarea = document.querySelector("textarea");
+playerInventory = Inventory();
+player = {};
+
