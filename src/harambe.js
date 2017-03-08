@@ -524,7 +524,7 @@ function drawHealthbar(canvas, x, y, width, height, _currentHealth, max_health) 
     }
     canvas.fillRect(x+1, y+1+640, (_currentHealth/max_health)*(width-2), height-2);
 }
-// Inventory - Jackson 14/02/2017
+// Inventory 
 Inventory = function(){
     var self = {
         items: []
@@ -563,8 +563,8 @@ Inventory = function(){
         var str = "";
         for(var i = 0; i < self.items.length; i++){
            let item = Item.List[self.items[i].id];
-           onclick = "Item.List['"+ item.id +"'].event()";
-            str += "<button onclick=\"\">" + item.name + " x" + self.items[i].amount +"</button><br>";
+           let onclick = "Item.List['"+ item.id +"'].event()";
+            str += "<button onclick=\""+ onclick + "\">" + item.name + " x" + self.items[i].amount +"</button><br>";
         }
         document.getElementById("Inventory").innerHTML = str;
     };
@@ -583,11 +583,11 @@ Item.List = {};
 
 Item("banana", "Banana",function () {
     currentHealth += 15;
-    Inventory.removeItem("banana",1)
+    playerInventory.removeItem("banana",1)
 });
 Item("mj", "MJ",function () {
     currentHealth += 15;
-    Inventory.removeItem("mj",1)
+    playerInventory.removeItem("mj",1)
 });
 
 var button = document.querySelector("button");
@@ -595,8 +595,6 @@ button.addEventListener("click", clickHandler, false);
 
 function clickHandler() {
     playerInventory.addItem("banana",1)
-	playerInventory.addItem("mj",5)
-	playerInventory.removeItem("mj",1)
 }
 var textarea = document.querySelector("textarea");
 playerInventory = Inventory();
