@@ -40,7 +40,7 @@ var scene =[];
 var obstacleArray =[];
 
 //map code
-var scene1=[
+var scene2=[
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 3, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 7, 0, 0, 3, 3, 0, 1, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 1],
@@ -62,8 +62,8 @@ var scene1=[
     [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 8, 8, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
-	
-var scene2=[
+	//new map, using this for now.
+var scene1=[
 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 [1,0,0,6,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,6,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 [1,0,0,6,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,6,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -125,6 +125,8 @@ var scene2=[
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ];
+
+
 //0=grass, 1=water
 var GRASS = new Image();
 GRASS.src = "../img/tiles/grass.png";
@@ -585,6 +587,7 @@ function updateMouse(event)
 
 
 //Jackson's code. This section is reserved for Jackson
+// Health Bar
 function renderUI(){
     drawHealthbar(surface, 10, 10, 500, 50, currentHealth, 100);
 }
@@ -607,3 +610,78 @@ function drawHealthbar(canvas, x, y, width, height, _currentHealth, max_health) 
     }
     canvas.fillRect(x+1, y+1+640, (_currentHealth/max_health)*(width-2), height-2);
 }
+
+// Inventory 
+Inventory = function(){
+    var self = {
+        items: []
+    };
+    self.addItem = function (id,amount) {
+        for(var i = 0; i < self.items.length; i++){
+            if(self.items[i].id === id){
+                self.items[i].amount += amount;
+                self.refreshRender();
+                return;
+            }
+        }
+        self.items.push({id:id,amount:amount});
+        self.refreshRender();
+    };
+    self.removeItem = function (id,amount) {
+        for(var i = 0; i < self.items.length; i++){
+            if(self.items[i].id === id){
+                self.items[i].amount -= amount;
+                if(self.items[i].amount <= 0)
+                    self.items.splice(i+1);
+                self.refreshRender();
+                return;
+            }
+        }
+    };
+    self.hasItem = function (id, amount) {
+        for(var i = 0; i < self.items.length; i++){
+            if(self.items[i].id === id){
+                return self.items[i].amount >= amount;
+            }
+        }
+        return false;
+    };
+    self.refreshRender = function () {
+        var str = "";
+        for(var i = 0; i < self.items.length; i++){
+           let item = Item.List[self.items[i].id];
+           let onclick = "Item.List['"+ item.id +"'].event()";
+            str += "<button onclick=\""+ onclick + "\">" + item.name + " x" + self.items[i].amount +"</button><br>";
+        }
+        document.getElementById("Inventory").innerHTML = str;
+    };
+    return self;
+};
+Item = function (id, name, event) {
+    var self = {
+        id:id,
+        name:name,
+        event:event
+    };
+    Item.List[self.id] = self;
+    return self;
+};
+Item.List = {};
+
+Item("banana", "Banana",function () {
+    currentHealth += 15;
+    playerInventory.removeItem("banana",1)
+});
+Item("mj", "MJ",function () {
+    currentHealth += 15;
+    playerInventory.removeItem("mj",1)
+});
+
+var button = document.querySelector("button");
+button.addEventListener("click", clickHandler, false);
+
+function clickHandler() {
+    playerInventory.addItem("banana",1)
+}
+var textarea = document.querySelector("textarea");
+playerInventory = Inventory();
