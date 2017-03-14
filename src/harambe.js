@@ -431,7 +431,32 @@ function checkCollision()
     }
 }
 
+//scrolling
+var isScrolling = false;
+var scrollSpeed=5;
+var scrollDir; //0=up, 1=right, 2=down, 3=left
 
+function scrollCheck(){
+    if(player.x+SIZE>canvas.width-60) {
+        scrollDir = 1;
+        isScrolling = true;
+    }
+}
+
+function scrollLevel(){
+    if (scrollDir = 1){
+        for (var row = 0; row < sceneRows; row++)
+        {
+            for (var col = 0; col < sceneColumns; col++)
+            {
+                scene[row][col].x -= scrollSpeed;
+            }
+        }
+        renderGame();
+    }
+
+    isScrolling = false;
+}
 
 function changeState(stateToRun)
 {
@@ -481,6 +506,9 @@ function enterGame()
 function updateGame()
 {
     console.log("In game state.");
+    if (isScrolling == true){
+        scrollLevel();
+    }
     checkButtons();
     checkInput();
     //moveTiles();
@@ -488,6 +516,7 @@ function updateGame()
     renderGame();
     renderButtons();
     renderUI();
+    scrollCheck();
 }
 
 function exitGame()
