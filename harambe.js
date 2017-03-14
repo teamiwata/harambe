@@ -26,47 +26,33 @@ var currState = -1;
 
 var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png", x:320, y:320, w:128, h:32, over:false, click:onStartClick}, // Start button
     {img:"../img/menu/btnHelp.png", imgO:"../img/menu/btnHelpO.png", x:100, y:720, w:128, h:32, over:false, click:onHelpClick}, // Help button
-    {img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitClick},
-	{img:"bananas.png", imgO:"bananas2.png", x:50, y:740, w:54, h:13, over:false, click:onBananas}]; // Exit button
+    {img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitClick}]; // Exit button
 
 	//begin textbox
-var testvalue = 10;
 surface.font="20px Georgia";
 var textfiller = {};
 //textfiller = new Image();
 //textfiller.src = "../img/menu/helpbackground.png";
-textfiller.message = testvalue + "blahx";
-textfiller.x = 0;
-textfiller.y = 800;
-//setTextBox(0, 800, "Test two: " + testvalue, 0, 700);
+textfiller.message = "This is a test";
+textfiller.x = 10;
+textfiller.y = 50;
+
 var textBoxImage = new Image();
 textBoxImage.src = "../img/menu/textbox.png";
-textBoxImagex = 0;
-textBoxImagey = 750;
-
-function onBananas()
-{
-	
-}
 
 function getTextBox()
 {
-	//surface.drawImage(textBoxImage, textBoxImagex, textBoxImagey);
 	surface.fillText(textfiller.message,textfiller.x,textfiller.y);
-
-}
-
-function setTextBox(textx, texty, message, imagex, imagey)
-{
-	textBoxImagex = imagex;
-	textBoxImagey = imagey;
 	
-	textfiller.x = textx;
-	textfiller.y = texty;
+}
+function setTextBox(x, y, message)
+{
+	textfiller.x = x;
+	textfiller.y = y;
 	textfiller.message = message;
 }
 	//end textbox
-
+	
 var activeBtns = [];
 
 var updateIval;
@@ -78,7 +64,7 @@ var scene =[];
 var obstacleArray =[];
 
 //map code
-var scene2=[
+var scene1=[
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 3, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 7, 0, 0, 3, 3, 0, 1, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 1],
@@ -100,8 +86,8 @@ var scene2=[
     [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 8, 8, 1],
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
-	//new map, using this for now.
-var scene1=[
+	
+var scene2=[
 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 [1,0,0,6,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,6,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 [1,0,0,6,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,6,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -163,8 +149,6 @@ var scene1=[
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ];
-
-
 //0=grass, 1=water
 var GRASS = new Image();
 GRASS.src = "../img/tiles/grass.png";
@@ -215,10 +199,7 @@ function onKeyDown(event)
         case 37: // left
         case 65: // a
             if (leftPressed == false)
-			{
                 leftPressed = true;
-				leftPressedSound= true;
-			}
             break;
         case 39: // right
         case 68: // d
@@ -472,74 +453,7 @@ function checkCollision()
     }
 }
 
-//scrolling
-var isScrolling = false;
-var scrollSpeed=5;
-var scrollDir; //0=up, 1=right, 2=down, 3=left
 
-function scrollCheck(){
-    if(player.y<90) {
-        scrollDir = 0;
-        isScrolling = true;
-    }
-    if(player.x+SIZE>canvas.width-90) {
-        scrollDir = 1;
-        isScrolling = true;
-    }
-    if(player.y+SIZE>canvas.height-90) {
-        scrollDir = 2;
-        isScrolling = true;
-    }
-    if(player.x<90) {
-        scrollDir = 3;
-        isScrolling = true;
-    }
-}
-
-function scrollLevel(){
-
-    if (scrollDir == 0){
-        for (var row = 0; row < sceneRows; row++)
-        {
-            for (var col = 0; col < sceneColumns; col++)
-            {
-                scene[row][col].y += scrollSpeed;
-            }
-        }
-    }
-
-    if (scrollDir == 1){
-        for (var row = 0; row < sceneRows; row++)
-        {
-            for (var col = 0; col < sceneColumns; col++)
-            {
-                scene[row][col].x -= scrollSpeed;
-            }
-        }
-    }
-
-    if (scrollDir == 2){
-        for (var row = 0; row < sceneRows; row++)
-        {
-            for (var col = 0; col < sceneColumns; col++)
-            {
-                scene[row][col].y -= scrollSpeed;
-            }
-        }
-    }
-
-    if (scrollDir == 3){
-        for (var row = 0; row < sceneRows; row++)
-        {
-            for (var col = 0; col < sceneColumns; col++)
-            {
-                scene[row][col].x += scrollSpeed;
-            }
-        }
-    }
-
-    isScrolling = false;
-}
 
 function changeState(stateToRun)
 {
@@ -563,8 +477,7 @@ function enterMenu()
 {
     console.log("Entering menu state.");
 	surface.clearRect(0,0,canvas.width,canvas.height);
-    activeBtns = [ buttons[0], buttons[3] ];
-	
+    activeBtns = [ buttons[0] ];
 	
 }
 
@@ -575,7 +488,6 @@ function updateMenu()
     surface.drawImage(menuBackground, 0, 0);
     renderButtons();
 	
-	//mike
 	//textbox begins
 	getTextBox();
 	//textbox ends
@@ -596,9 +508,6 @@ function enterGame()
 function updateGame()
 {
     console.log("In game state.");
-    if (isScrolling == true){
-        scrollLevel();
-    }
     checkButtons();
     checkInput();
     //moveTiles();
@@ -606,7 +515,6 @@ function updateGame()
     renderGame();
     renderButtons();
     renderUI();
-    scrollCheck();
 }
 
 function exitGame()
@@ -706,7 +614,6 @@ function updateMouse(event)
 
 
 //Jackson's code. This section is reserved for Jackson
-// Health Bar
 function renderUI(){
     drawHealthbar(surface, 10, 10, 500, 50, currentHealth, 100);
 }
@@ -729,79 +636,3 @@ function drawHealthbar(canvas, x, y, width, height, _currentHealth, max_health) 
     }
     canvas.fillRect(x+1, y+1+640, (_currentHealth/max_health)*(width-2), height-2);
 }
-
-// Inventory 
-Inventory = function(){
-    var self = {
-        items: []
-    };
-    self.addItem = function (id,amount) {
-        for(var i = 0; i < self.items.length; i++){
-            if(self.items[i].id === id){
-                self.items[i].amount += amount;
-                self.refreshRender();
-                return;
-            }
-        }
-        self.items.push({id:id,amount:amount});
-        self.refreshRender();
-    };
-    self.removeItem = function (id,amount) {
-        for(var i = 0; i < self.items.length; i++){
-            if(self.items[i].id === id){
-                self.items[i].amount -= amount;
-                if(self.items[i].amount >= 0)
-                    self.items.splice(i+1);
-                self.refreshRender();
-                return;
-            }
-        }
-    };
-    self.hasItem = function (id, amount) {
-        for(var i = 0; i < self.items.length; i++){
-            if(self.items[i].id === id){
-                return self.items[i].amount >= amount;
-            }
-        }
-        return false;
-    };
-    self.refreshRender = function () {
-        var str = "";
-        for(var i = 0; i < self.items.length; i++){
-           let item = Item.List[self.items[i].id];
-           let onclick = "Item.List['"+ item.id +"'].event()";
-            str += "<button onclick=\""+ onclick + "\" id=\"innerbuttons\">" + item.name + " x" + self.items[i].amount +"</button><br>";
-        }
-        document.getElementById("Inventory").innerHTML = str;
-    };
-    return self;
-};
-Item = function (id, name, event) {
-    var self = {
-        id:id,
-        name:name,
-        event:event
-    };
-    Item.List[self.id] = self;
-    return self;
-};
-Item.List = {};
-
-Item("banana", "Banana",function () {
-    currentHealth += 15;
-    playerInventory.removeItem("banana",1)
-});
-Item("mj", "MJ",function () {
-    currentHealth += 15;
-    playerInventory.removeItem("mj",1)
-});
-
-var button = document.querySelector("button");
-button.addEventListener("click", clickHandler, false);
-
-function clickHandler() {
-    playerInventory.addItem("banana",1)
-	playerInventory.addItem("mj",1)
-}
-var textarea = document.querySelector("textarea");
-playerInventory = Inventory();
