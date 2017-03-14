@@ -437,14 +437,37 @@ var scrollSpeed=5;
 var scrollDir; //0=up, 1=right, 2=down, 3=left
 
 function scrollCheck(){
-    if(player.x+SIZE>canvas.width-60) {
+    if(player.y<90) {
+        scrollDir = 0;
+        isScrolling = true;
+    }
+    if(player.x+SIZE>canvas.width-90) {
         scrollDir = 1;
+        isScrolling = true;
+    }
+    if(player.y+SIZE>canvas.height-90) {
+        scrollDir = 2;
+        isScrolling = true;
+    }
+    if(player.x<90) {
+        scrollDir = 3;
         isScrolling = true;
     }
 }
 
 function scrollLevel(){
-    if (scrollDir = 1){
+
+    if (scrollDir == 0){
+        for (var row = 0; row < sceneRows; row++)
+        {
+            for (var col = 0; col < sceneColumns; col++)
+            {
+                scene[row][col].y += scrollSpeed;
+            }
+        }
+    }
+
+    if (scrollDir == 1){
         for (var row = 0; row < sceneRows; row++)
         {
             for (var col = 0; col < sceneColumns; col++)
@@ -452,7 +475,26 @@ function scrollLevel(){
                 scene[row][col].x -= scrollSpeed;
             }
         }
-        renderGame();
+    }
+
+    if (scrollDir == 2){
+        for (var row = 0; row < sceneRows; row++)
+        {
+            for (var col = 0; col < sceneColumns; col++)
+            {
+                scene[row][col].y -= scrollSpeed;
+            }
+        }
+    }
+
+    if (scrollDir == 3){
+        for (var row = 0; row < sceneRows; row++)
+        {
+            for (var col = 0; col < sceneColumns; col++)
+            {
+                scene[row][col].x += scrollSpeed;
+            }
+        }
     }
 
     isScrolling = false;
