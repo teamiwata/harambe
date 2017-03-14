@@ -26,38 +26,47 @@ var currState = -1;
 
 var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png", x:320, y:320, w:128, h:32, over:false, click:onStartClick}, // Start button
     {img:"../img/menu/btnHelp.png", imgO:"../img/menu/btnHelpO.png", x:100, y:720, w:128, h:32, over:false, click:onHelpClick}, // Help button
-    {img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitClick}]; // Exit button
+    {img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitClick},
+	{img:"bananas.png", imgO:"bananas2.png", x:50, y:740, w:54, h:13, over:false, click:onBananas}]; // Exit button
 
 	//begin textbox
+var testvalue = 10;
 surface.font="20px Georgia";
 var textfiller = {};
 //textfiller = new Image();
 //textfiller.src = "../img/menu/helpbackground.png";
-textfiller.message = "This is a test";
-textfiller.x = 10;
-textfiller.y = 50;
-setTextBox(100, 50, "Test two", 0, 0);
+textfiller.message = testvalue + "blahx";
+textfiller.x = 0;
+textfiller.y = 800;
+//setTextBox(0, 800, "Test two: " + testvalue, 0, 700);
 var textBoxImage = new Image();
 textBoxImage.src = "../img/menu/textbox.png";
-textBoxImage.x = 50;
-textBoxImage.y = 50;
+textBoxImagex = 0;
+textBoxImagey = 750;
+
+function onBananas()
+{
+	
+}
 
 function getTextBox()
 {
-	surface.drawImage(textBoxImage, textBoxImage.x, textBoxImage.y);
+	//surface.drawImage(textBoxImage, textBoxImagex, textBoxImagey);
 	surface.fillText(textfiller.message,textfiller.x,textfiller.y);
 
 }
+
 function setTextBox(textx, texty, message, imagex, imagey)
 {
-	textBoxImage.x = imagex;
-	textBoxImage.y = imagey;
+	textBoxImagex = imagex;
+	textBoxImagey = imagey;
+	
 	textfiller.x = textx;
 	textfiller.y = texty;
 	textfiller.message = message;
 }
 	//end textbox
-	
+
 var activeBtns = [];
 
 var updateIval;
@@ -204,7 +213,10 @@ function onKeyDown(event)
         case 37: // left
         case 65: // a
             if (leftPressed == false)
+			{
                 leftPressed = true;
+				leftPressedSound= true;
+			}
             break;
         case 39: // right
         case 68: // d
@@ -482,7 +494,7 @@ function enterMenu()
 {
     console.log("Entering menu state.");
 	surface.clearRect(0,0,canvas.width,canvas.height);
-    activeBtns = [ buttons[0] ];
+    activeBtns = [ buttons[0], buttons[3] ];
 	
 	
 }
@@ -494,6 +506,7 @@ function updateMenu()
     surface.drawImage(menuBackground, 0, 0);
     renderButtons();
 	
+	//mike
 	//textbox begins
 	getTextBox();
 	//textbox ends
