@@ -185,7 +185,40 @@ START.src = "../img/tiles/beds_bed_fancy.png";
 var EXIT = new Image();
 EXIT.src = "../img/tiles/beds_bed_top_bottom.png";
 
+var torch = new Image();
+torch.src = "../img/environment/torchA.png";
 
+torch.addEventListener("load", loadImage, false); // load the torch
+//torch.removeEventListener("load", loadImage, false); //if you discomment this it WILL delete the torch, remove working
+
+//animation scripts
+function loadImage(e) {
+        animate();
+    }
+
+    var shift = 0;
+    var frameWidth = 32;
+    var frameHeight = 32;
+    var totalFrames = 16;
+    var currentFrame = 0;
+
+    function animate() {
+        surface.drawImage(torch, 
+						  0, shift, frameWidth, frameHeight,
+						  305, 320, frameWidth, frameHeight);  //coordinates of the torch
+
+        shift = currentFrame * (frameHeight);
+
+        if (currentFrame == totalFrames) {
+            shift = 0;
+            currentFrame = 0;
+        }
+
+        currentFrame++;
+
+        requestAnimationFrame(animate);
+    }
+	
 //player object
 var player = {
     x:canvas.width/2, y:canvas.height/2, w:SIZE, h:SIZE, img:new Image(), playerSpeed: 4,
@@ -431,6 +464,8 @@ function updatePlayerBounds()
     player.bottom = {l:player.x+8, r:player.x+player.w-8, t:player.y+player.h-6, b:player.y+player.h };
 }
 
+
+
 function checkCollision()
 {
     //all 4 bounding boxes of player and the obstacles are checked
@@ -543,12 +578,12 @@ function scrollLevel(){
 
 function changeState(stateToRun)
 {
-    if (stateToRun >= 0 && stateToRun < states.length)
+	if (stateToRun >= 0 && stateToRun < states.length)
     {
         if (currState >= 0)
         {
             clearInterval(updateIval);
-            states[currState].exit();
+            states[currState].exit();			
         }
         lastState = currState;
         currState = stateToRun;
@@ -589,8 +624,10 @@ function exitMenu()
 function enterGame()
 {
     console.log("Entering game state.");
-    activeBtns = [ buttons[1], buttons[2] ];
-    loadScene(scene1);
+	torch.removeEventListener("load", loadImage, false); //for some reason is not erasing the torch
+	console.log('Suposed to erase the torch');
+	activeBtns = [ buttons[1], buttons[2] ];
+    loadScene(scene1);	
 }
 
 function updateGame()
@@ -805,3 +842,4 @@ function clickHandler() {
 }
 var textarea = document.querySelector("textarea");
 playerInventory = Inventory();
+
