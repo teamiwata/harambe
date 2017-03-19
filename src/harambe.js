@@ -31,8 +31,8 @@ var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png"
 	{img:"../img/menu/mojo.png", imgO:"../img/menu/mojo2.png", x:250, y:779, w:54, h:13, over:false, click:onMojo}]; // Exit button
 
 var inventory = [2];
-inventory[0] = 0;
-inventory[1] = 0;
+inventory[0] = 1;
+inventory[1] = 1;
 	
 	//mike stuff
 	//begin textbox
