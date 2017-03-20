@@ -265,6 +265,25 @@ START.src = "../img/tiles/beds_bed_fancy.png";
 var EXIT = new Image();
 EXIT.src = "../img/tiles/beds_bed_top_bottom.png";
 
+var torch = new Image();
+torch.src = "../img/environment/torchA.png";
+
+
+//animation scripts
+function loadImage(e) {
+        animate();
+    }
+
+    var shift = 0;
+    var frameWidth = 32;
+    var frameHeight = 32;
+    var totalFrames = 16;
+    var currentFrame = 0;
+
+    function animate() {
+               
+    }
+
 
 //player object
 var player = {
@@ -485,7 +504,20 @@ function renderGame()
         for (var col = 0; col < sceneColumns; col++){
             surface.drawImage(scene[row][col].img, scene[row][col].x, scene[row][col].y); //draw image property/object of each element
         }
+	//animation
+	surface.drawImage(torch, 
+						  0, shift, frameWidth, frameHeight,
+						  torch.x=305, torch.y=320, frameWidth, frameHeight);  //coordinates of the torch
 
+        shift = currentFrame * (frameHeight);
+
+        if (currentFrame == totalFrames) {
+            shift = 0;
+            currentFrame = 0;
+        }
+
+        currentFrame++;
+		
     //render player
     surface.drawImage(player.img, player.x, player.y);
 	
