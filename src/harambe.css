@@ -10,7 +10,7 @@ body {
     margin-right: auto;
     background-color: white;
     /* Cursor URL is just a placeholder until we find a final cursor - Jackson Wong*/
-    cursor: url('../img/MTCORE32px/basic_bow_loaded.png'), auto;
+    cursor: url('../img/tiles/cursor.png'), auto;
 }
 
 #buttons
@@ -39,7 +39,7 @@ body {
 	border: none;
 	border-radius: 15px;
 	box-shadow: 0 3px #999;
-	cursor: url('../img/MTCORE32px/basic_bow_loaded.png'), auto;
+	cursor: url('../img/tiles/cursor.png'), auto;
 }
 #innerbuttons:hover
 {
