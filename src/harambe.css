@@ -9,8 +9,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     background-color: white;
-    /* Cursor URL is just a placeholder until we find a final cursor - Jackson Wong*/
-    cursor: url('../img/MTCORE32px/basic_bow_loaded.png'), auto;
+    cursor: url('../img/cursors/cursor.png'), auto;
 }
 
 #buttons

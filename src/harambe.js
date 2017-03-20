@@ -224,7 +224,7 @@ var scene1=[
 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ];
 
-
+/*
 //0=grass, 1=water
 var GRASS = new Image();
 GRASS.src = "../img/tiles/grass.png";
@@ -238,6 +238,26 @@ var CAGE = new Image();
 CAGE.src = "../img/tiles/castle_jailbars.png";
 var BUSH = new Image();
 BUSH.src = "../img/tiles/castle_straw.png";
+var WALL = new Image();
+WALL.src = "../img/tiles/castle_dungeon_stone.png";
+var START = new Image();
+START.src = "../img/tiles/beds_bed_fancy.png";
+var EXIT = new Image();
+EXIT.src = "../img/tiles/beds_bed_top_bottom.png";
+*/
+//0=grass, 1=water
+var GRASS = new Image();
+GRASS.src = "../img/tiles/grasstile.png";
+var WATER = new Image();
+WATER.src = "../img/tiles/watertile.png";
+var FENCE = new Image();
+FENCE.src ="../img/tiles/fencetile.png";
+var LAKE = new Image();
+LAKE.src = "../img/tiles/walltile.png";
+var CAGE = new Image();
+CAGE.src = "../img/tiles/castle_jailbars.png";
+var BUSH = new Image();
+BUSH.src = "../img/tiles/stonetile.png";
 var WALL = new Image();
 WALL.src = "../img/tiles/castle_dungeon_stone.png";
 var START = new Image();
@@ -468,6 +488,7 @@ function renderGame()
 
     //render player
     surface.drawImage(player.img, player.x, player.y);
+	
 }
 
 //move tiles
@@ -624,6 +645,7 @@ function enterMenu()
     console.log("Entering menu state.");
 	surface.clearRect(0,0,canvas.width,canvas.height);
     activeBtns = [ buttons[0] ];
+	//testmousover()
 	
 	
 }
@@ -876,4 +898,27 @@ function clickHandler() {
 	mojo.message = inventory[0];
 }
 var textarea = document.querySelector("textarea");
-playerInventory = Inventory();
+/*
+function testmousover()
+{
+function writeMessage(canvas, message) {
+        
+        surface.fillText(message, 10, 25);
+      }
+      function getMousePos(canvas, evt) {
+        var rect = canvas.getBoundingClientRect();
+        return {
+          x: evt.clientX - rect.left,
+          y: evt.clientY - rect.top
+        };
+      }
+
+      canvas.addEventListener('mousemove', function(evt) {
+        var mousePos = getMousePos(canvas, evt);
+        var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
+        writeMessage(canvas, message);
+      }, false);
+	  
+	  if ()
+}
+*/
