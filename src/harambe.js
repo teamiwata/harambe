@@ -30,9 +30,12 @@ var currState = -1;
 //Madalyn
 //Play the music for the game.
 var sound = new Howl({
-  src: ['../sound/music/zizibum.mp3']
+  src: ['../sound/music/zizibum.mp3'],
+  autoplay: true,
+  loop: true,
+  volume: 0.1,
 });
-sound.play();
+//sound.play();
 //End playing the music for the game.
 
 var inventory = [2];
