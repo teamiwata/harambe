@@ -1,7 +1,3 @@
-var canvas = document.querySelector("canvas");
-var surface = canvas.getContext("2d");
-canvas.width = 640;
-canvas.height = 800;
 
 const SIZE=32; //size of each tile
 var sceneRows = 0;
@@ -15,6 +11,13 @@ var states = [{enter: enterMenu, update: updateMenu, exit: exitMenu}, 	// Main m
 			{enter: enterGame, update: updateGame, exit: exitGame}, 	// Game state.
 			{enter: enterHelp, update: updateHelp, exit: exitHelp}];	// Help state.
 	
+var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png", x:320, y:320, w:128, h:32, over:false, click:onStartClick}, // Start button
+    {img:"../img/menu/btnHelp.png", imgO:"../img/menu/btnHelpO.png", x:100, y:720, w:128, h:32, over:false, click:onHelpClick}, // Help button
+    {img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitClick},
+	{img:"../img/menu/bananas.png", imgO:"../img/menu/bananas2.png", x:6, y:779, w:54, h:13, over:false, click:onBananas},
+	{img:"../img/menu/mojo.png", imgO:"../img/menu/mojo2.png", x:250, y:779, w:54, h:13, over:false, click:onMojo}]; // Exit button
+
+	
 var menuBackground = new Image();
 menuBackground.src = "../img/menu/menubackground.png";
 var helpBackground = new Image();
@@ -24,11 +27,13 @@ helpBackground.src = "../img/menu/helpbackground.png";
 var lastState = -1;
 var currState = -1;
 
-var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png", x:320, y:320, w:128, h:32, over:false, click:onStartClick}, // Start button
-    {img:"../img/menu/btnHelp.png", imgO:"../img/menu/btnHelpO.png", x:100, y:720, w:128, h:32, over:false, click:onHelpClick}, // Help button
-    {img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitClick},
-	{img:"../img/menu/bananas.png", imgO:"../img/menu/bananas2.png", x:6, y:779, w:54, h:13, over:false, click:onBananas},
-	{img:"../img/menu/mojo.png", imgO:"../img/menu/mojo2.png", x:250, y:779, w:54, h:13, over:false, click:onMojo}]; // Exit button
+//Madalyn
+//Play the music for the game.
+var sound = new Howl({
+  src: ['../sound/music/zizibum.mp3']
+});
+sound.play();
+//End playing the music for the game.
 
 var inventory = [2];
 inventory[0] = 1;
@@ -46,13 +51,6 @@ var mojo = {};
 mojo.message = inventory[1];
 mojo.x = 250;
 mojo.y = 790;
-/*
-var textBoxImage = new Image();
-textBoxImage.src = "../img/menu/textbox.png";
-textBoxImagex = 0;
-textBoxImagey = 750;
-*/
-
 
 function onBananas()
 {
@@ -686,10 +684,9 @@ function updateMenu()
 {
     console.log("In menu state.");
 	surface.clearRect(0,0,canvas.width,canvas.height);
-    checkButtons();
+	checkButtons();
     surface.drawImage(menuBackground, 0, 0);
     renderButtons();
-	
 	
 }
 
@@ -848,77 +845,6 @@ function drawHealthbar(canvas, x, y, width, height, _currentHealth, max_health) 
 }
 
 
-/*
-
-
-// Inventory 
-Inventory = function(){
-    var self = {
-        items: []
-    };
-    self.addItem = function (id,amount) {
-        for(var i = 0; i < self.items.length; i++){
-            if(self.items[i].id === id){
-                self.items[i].amount += amount;
-                self.refreshRender();
-                return;
-            }
-        }
-        self.items.push({id:id,amount:amount});
-        self.refreshRender();
-    };
-    self.removeItem = function (id,amount) {
-        for(var i = 0; i < self.items.length; i++){
-            if(self.items[i].id === id){
-                self.items[i].amount -= amount;
-                if(self.items[i].amount >= 0)
-                    self.items.splice(i+1);
-                self.refreshRender();
-                return;
-            }
-        }
-    };
-    self.hasItem = function (id, amount) {
-        for(var i = 0; i < self.items.length; i++){
-            if(self.items[i].id === id){
-                return self.items[i].amount >= amount;
-            }
-        }
-        return false;
-    };
-    self.refreshRender = function () {
-        var str = "";
-        for(var i = 0; i < self.items.length; i++){
-           let item = Item.List[self.items[i].id];
-           let onclick = "Item.List['"+ item.id +"'].event()";
-            str += "<button onclick=\""+ onclick + "\" id=\"innerbuttons\">" + item.name + " x" + self.items[i].amount +"</button><br>";
-        }
-        document.getElementById("Inventory").innerHTML = str;
-    };
-    return self;
-};
-Item = function (id, name, event) {
-    var self = {
-        id:id,
-        name:name,
-        event:event
-    };
-    Item.List[self.id] = self;
-    return self;
-};
-Item.List = {};
-
-Item("banana", "Banana",function () {
-    currentHealth += 15;
-    playerInventory.removeItem("banana",1)
-});
-Item("mj", "MJ",function () {
-    currentHealth += 15;
-    playerInventory.removeItem("mj",1)
-});
-*/
-
-
 //mike stuff
 var button = document.querySelector("button");
 button.addEventListener("click", clickHandler, false);
@@ -930,27 +856,3 @@ function clickHandler() {
 	mojo.message = inventory[0];
 }
 var textarea = document.querySelector("textarea");
-/*
-function testmousover()
-{
-function writeMessage(canvas, message) {
-        
-        surface.fillText(message, 10, 25);
-      }
-      function getMousePos(canvas, evt) {
-        var rect = canvas.getBoundingClientRect();
-        return {
-          x: evt.clientX - rect.left,
-          y: evt.clientY - rect.top
-        };
-      }
-
-      canvas.addEventListener('mousemove', function(evt) {
-        var mousePos = getMousePos(canvas, evt);
-        var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
-        writeMessage(canvas, message);
-      }, false);
-	  
-	  if ()
-}
-*/
