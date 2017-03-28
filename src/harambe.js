@@ -4,7 +4,7 @@ var sceneRows = 0;
 var sceneColumns = 0;
 
 window.addEventListener("load", loadAssets);
-var numAssets = 6;
+var numAssets = 13;
 var assetsLoaded = 0;
 
 var states = [{enter: enterMenu, update: updateMenu, exit: exitMenu}, 	// Main menu state.
@@ -27,6 +27,9 @@ helpBackground.src = "../img/menu/helpbackground.png";
 var lastState = -1;
 var currState = -1;
 
+
+
+
 //Madalyn
 //Play the music for the game.
 var sound = new Howl({
@@ -36,6 +39,12 @@ var sound = new Howl({
   volume: 0.1,
 });
 //sound.play();
+
+var sound2 = new Howl({
+  src: ['../sound/music/zizibum.mp3'],
+  volume: 0.1,
+});
+//sound2.play();
 //End playing the music for the game.
 
 var activeBtns = [];
@@ -68,8 +77,11 @@ function loadImage(e) {
 var player = {
     x:canvas.width/2, y:canvas.height/2, w:SIZE, h:SIZE, img:new Image(), playerSpeed: 4,
     left: null, right: null, top: null, bottom: null,   //bounding boxes for collision
+	lastX:null, lastY:null, currX:null, currY:null,     // Enemy requirements
     colL:false, colR:false, colT:false, colB:false};    //true when player collides
 player.img.src = "../img/tiles/player.png";
+player.lastX = player.currX = player.x;
+player.lastY = player.currY = player.y;
 
 //GUI
 var currentHealth= 30;
@@ -137,13 +149,29 @@ function onKeyUp(event)
 
 function checkInput() {
     if (leftPressed == 1 && player.x > 0 && player.colL == false)
+	{
         player.x -= player.playerSpeed;
+		player.lastX = player.currX;
+		player.currX = player.x;
+	}
     if (rightPressed == 1 && player.x < canvas.width-SIZE && player.colR == false)
+	{
         player.x += player.playerSpeed;
+		player.lastX = player.currX;
+		player.currX = player.x;
+	}
     if (upPressed == 1 && player.y > 0 && player.colT == false)
+	{
         player.y -= player.playerSpeed;
+		player.lastX = player.currX;
+		player.currX = player.x;
+	}
     if (downPressed == 1 && player.y < canvas.height-SIZE && player.colB == false)
+	{
         player.y += player.playerSpeed;
+		player.lastX = player.currX;
+		player.currX = player.x;
+	}
     updatePlayerBounds();
 }
 
@@ -161,6 +189,15 @@ function loadAssets(event)
         tempBtnO.addEventListener("load", onAssetLoad);
         buttons[i].imgO = tempBtnO;
     }
+	for (var i = 0; i < tileImages.length; i++) //Enemies Code
+	{
+		tempTile = new Image();
+		tempTile.src = tileImages[i];
+		tempTile.addEventListener("load", onAssetLoad);
+		tileImages[i] = tempTile;
+	}
+	for (var i = 0; i < enemies.length; i++) //Enemies Code
+		enemies[i].img = tileImages[3];
 }
 
 function onAssetLoad(event)
@@ -172,6 +209,9 @@ function onAssetLoad(event)
 function initGame()
 {
     changeState(0);
+	//Enemies Code
+	for (var i = 0; i < enemies.length; i++) 
+		calcDeltas(enemies[i]); // For enemy.
 }
 
 //pass in the map code array into this function to load the scene
@@ -297,8 +337,26 @@ function renderGame()
 
         currentFrame++;
 		
+		//Enemies Code
+		if (!isScrolling)
+	{
+		for (var i = 0; i < enemies.length; i++)
+		{
+			surface.drawImage(enemies[i].img, enemies[i].x, enemies[i].y);
+			for (var j = 0; j < enemies[i].linecasts.length; j++)
+				surface.drawImage(tileImages[5], enemies[i].linecasts[j].x, enemies[i].linecasts[j].y);
+		}
+		for (var i = 0; i < bullets.length; i++)
+			surface.drawImage(bullets[i].img, bullets[i].x, bullets[i].y);
+	}
+	//Enemies Code End
+	
+	
     //render player
     surface.drawImage(player.img, player.x, player.y);
+	
+	
+	
 	
 }
 
@@ -459,6 +517,7 @@ function enterMenu()
 	//testmousover()
 	
 	
+	
 }
 
 function updateMenu()
@@ -467,8 +526,7 @@ function updateMenu()
 	surface.clearRect(0,0,canvas.width,canvas.height);
 	checkButtons();
     surface.drawImage(menuBackground, 0, 0);
-    renderButtons();
-	
+    renderButtons();	
 }
 
 function exitMenu()
@@ -496,12 +554,13 @@ function updateGame()
     renderGame();
     renderButtons();
     renderUI();
+	
     scrollCheck();
-	//mike
-	//textbox begins
-	getBananaTextBox();
-	getMojoTextBox();
-	//textbox ends
+	//Enemies Code
+	for (var i = 0; i < enemies.length; i++)
+			enemies[i].update(); // Added the enemy update.
+	getBananaTextBox(); //Inventory Buttons
+	getMojoTextBox(); //Inventory Buttons
 }
 
 function exitGame()
@@ -626,7 +685,7 @@ function drawHealthbar(canvas, x, y, width, height, _currentHealth, max_health) 
 }
 
 
-//mike stuff
+//Inventory Buttons
 var button = document.querySelector("button");
 button.addEventListener("click", clickHandler, false);
 
