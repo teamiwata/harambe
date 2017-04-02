@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Harambe sound effects</title>
+
+<script>
+
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    }
+    this.stop = function(){
+        this.sound.pause();
+    }
+}
+
+//1.Sounds like a gorilla screaming, indicating Harambe has died
+var deathSound;
+
+//2. Sounds like a person slipping on a banana peel, indicating projectile has made contact with enemy
+var enemyDown;
+
+//3.Sounds like a gorilla grunt, indicating harambe has thrown a banana at an enemy
+var throwBanana;
+
+//4. Sounds like a door closing, indicating harambe has transition to a level.
+var levelSwitch;
+
+//5. Sounds like the legend of zelda theme, indicating harambe has receive a ship part.
+var shipPart;
+
+//6. Sounds like a money, "chi-ching" sound, indicating harambe has acess to shop.
+var shopAccess;
+
+//7.
+
+</script>
+
+</head>
+
+<body>
+
+
+</body>
+
+</html>
