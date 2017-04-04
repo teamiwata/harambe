@@ -4,7 +4,7 @@ var sceneRows = 0;
 var sceneColumns = 0;
 
 window.addEventListener("load", loadAssets);
-var numAssets = 13;
+var numAssets = 18;
 var assetsLoaded = 0;
 
 var states = [{enter: enterMenu, update: updateMenu, exit: exitMenu}, 	// Main menu state.
@@ -291,21 +291,42 @@ function loadScene(_scene){
                 //obstacleArray.push(tile);
             }
 			else if(_scene[row][col] == 9){
-                tile.img = EXIT;
+                tile.img = BOAT1;
                 tile.w = SIZE;
                 tile.h = SIZE;
                 scene[row][col] = tile;
                 obstacleArray.push(tile);
             }
 			else if(_scene[row][col] == 10){
-                tile.img = EXIT;
+                tile.img = BOAT2;
                 tile.w = SIZE;
                 tile.h = SIZE;
                 scene[row][col] = tile;
                 obstacleArray.push(tile);
             }
 			else if(_scene[row][col] == 11){
-                tile.img = EXIT;
+                tile.img = BOAT3;
+                tile.w = SIZE;
+                tile.h = SIZE;
+                scene[row][col] = tile;
+                obstacleArray.push(tile);
+            }
+			else if(_scene[row][col] == 12){
+                tile.img = BOAT4;
+                tile.w = SIZE;
+                tile.h = SIZE;
+                scene[row][col] = tile;
+                obstacleArray.push(tile);
+            }
+			else if(_scene[row][col] == 13){
+                tile.img = STORE;
+                tile.w = SIZE;
+                tile.h = SIZE;
+                scene[row][col] = tile;
+                obstacleArray.push(tile);
+            }
+			else if(_scene[row][col] == 14){
+                tile.img = RESPAWN;
                 tile.w = SIZE;
                 tile.h = SIZE;
                 scene[row][col] = tile;
