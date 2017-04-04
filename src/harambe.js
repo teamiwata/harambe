@@ -11,9 +11,9 @@ var states = [{enter: enterMenu, update: updateMenu, exit: exitMenu}, 	// Main m
 			{enter: enterGame, update: updateGame, exit: exitGame}, 	// Game state.
 			{enter: enterHelp, update: updateHelp, exit: exitHelp}];	// Help state.
 	
-var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png", x:320, y:320, w:128, h:32, over:false, click:onStartClick}, // Start button
+var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png", x:400, y:720, w:128, h:32, over:false, click:onStartClick}, // Start button
     {img:"../img/menu/btnHelp.png", imgO:"../img/menu/btnHelpO.png", x:100, y:720, w:128, h:32, over:false, click:onHelpClick}, // Help button
-    {img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitGameClick},
+    {img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:520, y:750, w:128, h:32, over:false, click:onExitGameClick},
 	{img:"../img/menu/bananas.png", imgO:"../img/menu/bananas2.png", x:6, y:779, w:54, h:13, over:false, click:onBananas},
 	{img:"../img/menu/mojo.png", imgO:"../img/menu/mojo2.png", x:250, y:779, w:54, h:13, over:false, click:onMojo},
 	{img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitHelpClick},]; 
@@ -681,7 +681,7 @@ function updateMouse(event)
 //Jackson's code. This section is reserved for Jackson
 // Health Bar
 function renderUI(){
-    drawHealthbar(surface, 10, 10, 500, 50, currentHealth, 100);
+    drawHealthbar(surface, 10, 100, 300, 30, currentHealth, 100);
 }
 
 function drawHealthbar(canvas, x, y, width, height, _currentHealth, max_health) {
