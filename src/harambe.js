@@ -425,30 +425,33 @@ function checkCollision()
 //scrolling
 var isScrolling = false;
 var scrollSpeed=5;
-var scrollDir; //0=up, 1=right, 2=down, 3=left
+var isScrollingUp = false;
+var isScrollingRight = false;
+var isScrollingDown = false;
+var isScrollingLeft =false;
 
 function scrollCheck(){
     if(player.y<90) {
-        scrollDir = 0;
+        isScrollingUp = true;
         isScrolling = true;
     }
     if(player.x+SIZE>canvas.width-90) {
-        scrollDir = 1;
+        isScrollingRight = true;
         isScrolling = true;
     }
     if(player.y+SIZE>canvas.height-90) {
-        scrollDir = 2;
+        isScrollingDown = true;
         isScrolling = true;
     }
     if(player.x<90) {
-        scrollDir = 3;
+        isScrollingLeft = true;
         isScrolling = true;
     }
 }
 
 function scrollLevel(){
 
-    if (scrollDir == 0){
+    if (isScrollingUp == true){
         for (var row = 0; row < sceneRows; row++)
         {
             for (var col = 0; col < sceneColumns; col++)
@@ -456,9 +459,10 @@ function scrollLevel(){
                 scene[row][col].y += scrollSpeed;
             }
         }
+        isScrollingUp = false;
     }
 
-    if (scrollDir == 1){
+    if (isScrollingRight == true){
         for (var row = 0; row < sceneRows; row++)
         {
             for (var col = 0; col < sceneColumns; col++)
@@ -466,9 +470,10 @@ function scrollLevel(){
                 scene[row][col].x -= scrollSpeed;
             }
         }
+        isScrollingRight = false;
     }
 
-    if (scrollDir == 2){
+    if (isScrollingDown == true){
         for (var row = 0; row < sceneRows; row++)
         {
             for (var col = 0; col < sceneColumns; col++)
@@ -476,9 +481,10 @@ function scrollLevel(){
                 scene[row][col].y -= scrollSpeed;
             }
         }
+        isScrollingDown = false;
     }
 
-    if (scrollDir == 3){
+    if (isScrollingLeft == true){
         for (var row = 0; row < sceneRows; row++)
         {
             for (var col = 0; col < sceneColumns; col++)
@@ -486,6 +492,7 @@ function scrollLevel(){
                 scene[row][col].x += scrollSpeed;
             }
         }
+        isScrollingLeft = false;
     }
 
     isScrolling = false;
@@ -696,3 +703,4 @@ function clickHandler() {
 	mojo.message = inventory[0];
 }
 var textarea = document.querySelector("textarea");
+
