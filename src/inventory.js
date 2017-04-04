@@ -43,3 +43,22 @@ function getMojoTextBox()
 {
 	surface.fillText(mojo.message,mojo.x,mojo.y);
 }
+
+// Jacksons Code
+
+function addBananas()
+{
+    if ( (inventory[0] > 0) && (currentHealth < 100))
+    {
+        inventory[0] += 1;
+        banana.message = inventory[0];
+    }
+}
+function addMojo()
+{
+    if ( (inventory[1] > 0) && (currentHealth < 100))
+    {
+        inventory[1] += 1;
+        mojo.message = inventory[1];
+    }
+}
