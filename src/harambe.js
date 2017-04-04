@@ -11,11 +11,13 @@ var states = [{enter: enterMenu, update: updateMenu, exit: exitMenu}, 	// Main m
 			{enter: enterGame, update: updateGame, exit: exitGame}, 	// Game state.
 			{enter: enterHelp, update: updateHelp, exit: exitHelp}];	// Help state.
 	
-var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png", x:320, y:320, w:128, h:32, over:false, click:onStartClick}, // Start button
+var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png", x:275, y:300, w:320, h:32, over:false, click:onStartClick}, // Start button
     {img:"../img/menu/btnHelp.png", imgO:"../img/menu/btnHelpO.png", x:100, y:720, w:128, h:32, over:false, click:onHelpClick}, // Help button
-    {img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitClick},
+    {img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitClick},// Exit button
 	{img:"../img/menu/bananas.png", imgO:"../img/menu/bananas2.png", x:6, y:779, w:54, h:13, over:false, click:onBananas},
-	{img:"../img/menu/mojo.png", imgO:"../img/menu/mojo2.png", x:250, y:779, w:54, h:13, over:false, click:onMojo}]; // Exit button
+	{img:"../img/menu/mojo.png", imgO:"../img/menu/mojo2.png", x:250, y:779, w:54, h:13, over:false, click:onMojo},
+    {img:"../img/menu/bananaShop.png", imgO:"../img/menu/bananasShop2.png", x:6, y:760, w:54, h:13, over:false, click:addBananas}];
+
 
 	
 var menuBackground = new Image();
@@ -425,33 +427,30 @@ function checkCollision()
 //scrolling
 var isScrolling = false;
 var scrollSpeed=5;
-var isScrollingUp = false;
-var isScrollingRight = false;
-var isScrollingDown = false;
-var isScrollingLeft =false;
+var scrollDir; //0=up, 1=right, 2=down, 3=left
 
 function scrollCheck(){
     if(player.y<90) {
-        isScrollingUp = true;
+        scrollDir = 0;
         isScrolling = true;
     }
     if(player.x+SIZE>canvas.width-90) {
-        isScrollingRight = true;
+        scrollDir = 1;
         isScrolling = true;
     }
     if(player.y+SIZE>canvas.height-90) {
-        isScrollingDown = true;
+        scrollDir = 2;
         isScrolling = true;
     }
     if(player.x<90) {
-        isScrollingLeft = true;
+        scrollDir = 3;
         isScrolling = true;
     }
 }
 
 function scrollLevel(){
 
-    if (isScrollingUp == true){
+    if (scrollDir == 0){
         for (var row = 0; row < sceneRows; row++)
         {
             for (var col = 0; col < sceneColumns; col++)
@@ -459,10 +458,9 @@ function scrollLevel(){
                 scene[row][col].y += scrollSpeed;
             }
         }
-        isScrollingUp = false;
     }
 
-    if (isScrollingRight == true){
+    if (scrollDir == 1){
         for (var row = 0; row < sceneRows; row++)
         {
             for (var col = 0; col < sceneColumns; col++)
@@ -470,10 +468,9 @@ function scrollLevel(){
                 scene[row][col].x -= scrollSpeed;
             }
         }
-        isScrollingRight = false;
     }
 
-    if (isScrollingDown == true){
+    if (scrollDir == 2){
         for (var row = 0; row < sceneRows; row++)
         {
             for (var col = 0; col < sceneColumns; col++)
@@ -481,10 +478,9 @@ function scrollLevel(){
                 scene[row][col].y -= scrollSpeed;
             }
         }
-        isScrollingDown = false;
     }
 
-    if (isScrollingLeft == true){
+    if (scrollDir == 3){
         for (var row = 0; row < sceneRows; row++)
         {
             for (var col = 0; col < sceneColumns; col++)
@@ -492,7 +488,6 @@ function scrollLevel(){
                 scene[row][col].x += scrollSpeed;
             }
         }
-        isScrollingLeft = false;
     }
 
     isScrolling = false;
@@ -544,7 +539,7 @@ function exitMenu()
 function enterGame()
 {
     console.log("Entering game state.");
-    activeBtns = [ buttons[1], buttons[2], buttons[3], buttons[4] ];
+    activeBtns = [ buttons[1], buttons[2], buttons[3], buttons[4], buttons[5] ];
     loadScene(scene1);
 	}
 
@@ -703,4 +698,3 @@ function clickHandler() {
 	mojo.message = inventory[0];
 }
 var textarea = document.querySelector("textarea");
-
