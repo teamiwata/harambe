@@ -13,9 +13,10 @@ var states = [{enter: enterMenu, update: updateMenu, exit: exitMenu}, 	// Main m
 	
 var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png", x:320, y:320, w:128, h:32, over:false, click:onStartClick}, // Start button
     {img:"../img/menu/btnHelp.png", imgO:"../img/menu/btnHelpO.png", x:100, y:720, w:128, h:32, over:false, click:onHelpClick}, // Help button
-    {img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitClick},
+    {img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitGameClick},
 	{img:"../img/menu/bananas.png", imgO:"../img/menu/bananas2.png", x:6, y:779, w:54, h:13, over:false, click:onBananas},
-	{img:"../img/menu/mojo.png", imgO:"../img/menu/mojo2.png", x:250, y:779, w:54, h:13, over:false, click:onMojo}]; // Exit button
+	{img:"../img/menu/mojo.png", imgO:"../img/menu/mojo2.png", x:250, y:779, w:54, h:13, over:false, click:onMojo},
+	{img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitHelpClick},]; 
 
 	
 var menuBackground = new Image();
@@ -212,6 +213,8 @@ function initGame()
 	//Enemies Code
 	for (var i = 0; i < enemies.length; i++) 
 		calcDeltas(enemies[i]); // For enemy.
+	
+	loadScene(scene1);
 }
 
 //pass in the map code array into this function to load the scene
@@ -520,7 +523,7 @@ function enterMenu()
 {
     console.log("Entering menu state.");
 	surface.clearRect(0,0,canvas.width,canvas.height);
-    activeBtns = [ buttons[0] ];
+    activeBtns = [ buttons[0],buttons[1]];
 	//testmousover()
 	
 	
@@ -544,8 +547,8 @@ function exitMenu()
 function enterGame()
 {
     console.log("Entering game state.");
-    activeBtns = [ buttons[1], buttons[2], buttons[3], buttons[4] ];
-    loadScene(scene1);
+    activeBtns = [  buttons[2], buttons[3], buttons[4] ];
+	
 	}
 
 function updateGame()
@@ -573,13 +576,20 @@ function updateGame()
 function exitGame()
 {
     console.log("Exiting game state.");
+
+	player.x=canvas.width/2;
+	player.y=canvas.height/2;
+	scene = [];
+	obstacleArray =[];
+    loadScene(scene1);
+
 }
 
 function enterHelp()
 {
     console.log("Entering help state.");
     surface.clearRect(0,0,canvas.width,canvas.height);
-    activeBtns = [ buttons[2] ];
+    activeBtns = [ buttons[5]];
 }
 
 function updateHelp()
@@ -648,12 +658,14 @@ function onHelpClick()
     changeState(2);
 }
 
-function onExitClick()
+function onExitGameClick()
 {
-    if (currState == 1)
         changeState(0);
-    else if (currState == 2)
-        changeState(1);
+}
+
+function onExitHelpClick(){
+	
+	changeState(0);
 }
 
 function updateMouse(event)
