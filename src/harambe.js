@@ -31,8 +31,7 @@ var currState = -1;
 
 
 
-//Madalyn
-//Play the music for the game.
+/*//Play the music for the game.
 var sound = new Howl({
   src: ['../sound/music/zizibum.mp3'],
   autoplay: true,
@@ -45,7 +44,7 @@ var sound2 = new Howl({
   src: ['../sound/music/zizibum.mp3'],
   volume: 0.1,
 });
-//sound2.play();
+//sound2.play();*/
 //End playing the music for the game.
 
 var activeBtns = [];
@@ -84,6 +83,66 @@ player.img.src = "../img/tiles/player.png";
 player.lastX = player.currX = player.x;
 player.lastY = player.currY = player.y;
 
+//torch object
+var torch_sprite = {
+    x:50,
+    y:50,
+};
+
+var torch_sprite1 = {
+    x:100,
+    y:100,
+};
+
+var torch_sprite2 = {
+    x:200,
+    y:200,
+};
+
+var torch_sprite3 = {
+    x:400,
+    y:400,
+};
+
+var torch_sprite4 = {
+    x:800,
+    y:800,
+};
+
+var torch_sprite5 = {
+    x:1600,
+    y:1600,
+};
+
+var torch_sprite6 = {
+    x:100,
+    y:50,
+};
+
+var torch_sprite7 = {
+    x:200,
+    y:100,
+};
+
+var torch_sprite8 = {
+    x:400,
+    y:200,
+};
+
+var torch_sprite9 = {
+    x:800,
+    y:400,
+};
+
+var torch_sprite10 = {
+    x:1600,
+    y:800,
+};
+
+var torch_sprite11 = {
+    x:1300,
+    y:1600,
+};
 
 
 
@@ -101,6 +160,7 @@ var upPressed = false;
 var downPressed = false;
 
 var mouse = {x:0, y:0};
+
 
 function onKeyDown(event)
 {
@@ -129,20 +189,6 @@ function onKeyDown(event)
             if (downPressed == false)
                 downPressed = true;
             break
-		case 73:
-			if (enemy.iStage == 0)
-			{
-				enemy.iStage = 1;
-				break;
-			}
-		case 49:
-		case 50:
-		case 51: 
-			if (enemy.iStage > -1 && eDialogIdx[enemy.iStage][event.keyCode-49] != undefined) 
-			{
-				enemy.iStage = eDialogIdx[enemy.iStage][event.keyCode-49]; 
-				break;
-			}
     }
 }
 
@@ -367,8 +413,48 @@ function renderGame()
 	//animation
 	surface.drawImage(torch, 
 						  0, shift, frameWidth, frameHeight,
-						  torch.x=305, torch.y=320, frameWidth, frameHeight);  //coordinates of the torch
+						  torch_sprite.x, torch_sprite.y, frameWidth, frameHeight);  //coordinates of the torch
+	surface.drawImage(torch, 
+						  0, shift, frameWidth, frameHeight,
+						  torch_sprite1.x, torch_sprite1.y, frameWidth, frameHeight);
+						  
+	surface.drawImage(torch, 
+						  0, shift, frameWidth, frameHeight,
+						  torch_sprite2.x, torch_sprite2.y, frameWidth, frameHeight);	
 
+	surface.drawImage(torch, 
+						  0, shift, frameWidth, frameHeight,
+						  torch_sprite3.x, torch_sprite3.y, frameWidth, frameHeight);  //coordinates of the torch
+	surface.drawImage(torch, 
+						  0, shift, frameWidth, frameHeight,
+						  torch_sprite4.x, torch_sprite4.y, frameWidth, frameHeight);
+						  
+	surface.drawImage(torch, 
+						  0, shift, frameWidth, frameHeight,
+						  torch_sprite5.x, torch_sprite5.y, frameWidth, frameHeight);	
+
+	surface.drawImage(torch, 
+						  0, shift, frameWidth, frameHeight,
+						  torch_sprite6.x, torch_sprite.y, frameWidth, frameHeight);  //coordinates of the torch
+	surface.drawImage(torch, 
+						  0, shift, frameWidth, frameHeight,
+						  torch_sprite7.x, torch_sprite1.y, frameWidth, frameHeight);
+						  
+	surface.drawImage(torch, 
+						  0, shift, frameWidth, frameHeight,
+						  torch_sprite8.x, torch_sprite2.y, frameWidth, frameHeight);	
+
+	surface.drawImage(torch, 
+						  0, shift, frameWidth, frameHeight,
+						  torch_sprite9.x, torch_sprite3.y, frameWidth, frameHeight);  //coordinates of the torch
+	surface.drawImage(torch, 
+						  0, shift, frameWidth, frameHeight,
+						  torch_sprite10.x, torch_sprite4.y, frameWidth, frameHeight);
+						  
+	surface.drawImage(torch, 
+						  0, shift, frameWidth, frameHeight,
+						  torch_sprite11.x, torch_sprite5.y, frameWidth, frameHeight);						  
+						  
         shift = currentFrame * (frameHeight);
 
         if (currentFrame == totalFrames) {
@@ -378,27 +464,6 @@ function renderGame()
 
         currentFrame++;
 		
-		
-		//AgentCode
-		/*if (!isScrolling)
-		{
-		if (enemy.iStage > -1)
-		{
-		var sz = eDialog[enemy.iStage].length;
-		surface.fillStyle = "#2B1B17";
-		surface.globalAlpha = 0.66;
-		surface.fillRect((enemy.x+enemy.w/2)-(5*eDialog[enemy.iStage][0].length)-5,enemy.y-(16*(sz+1)),(5*eDialog[enemy.iStage][0].length)*2+2,(16*sz)+7);	
-		surface.globalAlpha = 1.0;
-		surface.font = "16px Courier New";
-		surface.fillStyle = "white";
-		for (var i = 0; i < sz; i++)
-		{
-			surface.fillText(eDialog[enemy.iStage][i],(enemy.x+enemy.w/2)-(5*eDialog[enemy.iStage][0].length),enemy.y-(16*(sz-i)));	
-		}
-		}
-		}
-	_textLevel.innerHTML = "Dialog Level: "+enemy.iStage;
-		*/
 		//Enemies Code
 		if (!isScrolling)
 	{
@@ -410,12 +475,7 @@ function renderGame()
 		}
 		for (var i = 0; i < bullets.length; i++)
 			surface.drawImage(bullets[i].img, bullets[i].x, bullets[i].y);
-		
-		
-	
-		
 	}
-	
 	//Enemies Code End
 	
 	
@@ -439,7 +499,14 @@ function renderGame()
  }*/
 
 
-
+function updatePlayerBounds()
+{
+    // Creating the 4 individual bounding boxes for the player
+    player.left = {l:player.x, r:player.x+6, t:player.y+8, b:player.y+player.h-8 };
+    player.right = {l:player.x+player.w-6, r:player.x+player.w, t:player.y+8, b:player.y+player.h-8 };
+    player.top = {l:player.x+8, r:player.x+player.w-8, t:player.y, b:player.y+6};
+    player.bottom = {l:player.x+8, r:player.x+player.w-8, t:player.y+player.h-6, b:player.y+player.h };
+}
 
 function checkCollision()
 {
@@ -516,9 +583,22 @@ function scrollLevel(){
         {
             for (var col = 0; col < sceneColumns; col++)
             {
-                scene[row][col].y += scrollSpeed;
+                scene[row][col].y += scrollSpeed;				
             }
         }
+		torch_sprite.y += scrollSpeed;
+		torch_sprite1.y += scrollSpeed;
+		torch_sprite2.y += scrollSpeed;
+		torch_sprite3.y += scrollSpeed;
+		torch_sprite4.y += scrollSpeed;
+		torch_sprite5.y += scrollSpeed;
+		torch_sprite6.y += scrollSpeed;
+		torch_sprite7.y += scrollSpeed;
+		torch_sprite8.y += scrollSpeed;
+		torch_sprite9.y += scrollSpeed;
+		torch_sprite10.y += scrollSpeed;
+		torch_sprite11.y += scrollSpeed;
+        
         isScrollingUp = false;
     }
 
@@ -527,9 +607,21 @@ function scrollLevel(){
         {
             for (var col = 0; col < sceneColumns; col++)
             {
-                scene[row][col].x -= scrollSpeed;
-            }
-        }
+                scene[row][col].x -= scrollSpeed;				
+			}
+        }	
+		torch_sprite.x -= scrollSpeed;
+		torch_sprite1.x -= scrollSpeed;	
+		torch_sprite2.x -= scrollSpeed;	
+		torch_sprite3.x -= scrollSpeed;
+		torch_sprite4.x -= scrollSpeed;	
+		torch_sprite5.x -= scrollSpeed;	
+		torch_sprite6.x -= scrollSpeed;
+		torch_sprite7.x -= scrollSpeed;	
+		torch_sprite8.x -= scrollSpeed;	
+		torch_sprite9.x -= scrollSpeed;
+		torch_sprite10.x -= scrollSpeed;	
+		torch_sprite11.x -= scrollSpeed;	
         isScrollingRight = false;
     }
 
@@ -538,10 +630,22 @@ function scrollLevel(){
         {
             for (var col = 0; col < sceneColumns; col++)
             {
-                scene[row][col].y -= scrollSpeed;
+                scene[row][col].y -= scrollSpeed;						
             }
         }
-        isScrollingDown = false;
+				torch_sprite.y -= scrollSpeed;
+				torch_sprite1.y -= scrollSpeed;
+				torch_sprite2.y -= scrollSpeed;
+				torch_sprite3.y -= scrollSpeed;
+				torch_sprite4.y -= scrollSpeed;
+				torch_sprite5.y -= scrollSpeed;
+				torch_sprite6.y -= scrollSpeed;
+				torch_sprite7.y -= scrollSpeed;
+				torch_sprite8.y -= scrollSpeed;
+				torch_sprite9.y -= scrollSpeed;
+				torch_sprite10.y -= scrollSpeed;
+				torch_sprite11.y -= scrollSpeed;
+		        isScrollingDown = false;
     }
 
     if (isScrollingLeft == true){
@@ -549,12 +653,23 @@ function scrollLevel(){
         {
             for (var col = 0; col < sceneColumns; col++)
             {
-                scene[row][col].x += scrollSpeed;
+                scene[row][col].x += scrollSpeed;								
             }
-        }
+        }		
+		torch_sprite.x += scrollSpeed;
+		torch_sprite1.x += scrollSpeed;
+		torch_sprite2.x += scrollSpeed;
+		torch_sprite3.x += scrollSpeed;
+		torch_sprite4.x += scrollSpeed;
+		torch_sprite5.x += scrollSpeed;
+		torch_sprite6.x += scrollSpeed;
+		torch_sprite7.x += scrollSpeed;
+		torch_sprite8.x += scrollSpeed;
+		torch_sprite9.x += scrollSpeed;
+		torch_sprite10.x += scrollSpeed;
+		torch_sprite11.x += scrollSpeed;
         isScrollingLeft = false;
     }
-
     isScrolling = false;
 }
 
@@ -606,7 +721,7 @@ function enterGame()
     console.log("Entering game state.");
     activeBtns = [  buttons[2], buttons[3], buttons[4] ];
 	
-}
+	}
 
 function updateGame()
 {
