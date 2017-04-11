@@ -84,6 +84,9 @@ player.img.src = "../img/tiles/player.png";
 player.lastX = player.currX = player.x;
 player.lastY = player.currY = player.y;
 
+
+
+
 //GUI
 var currentHealth= 30;
 
@@ -126,6 +129,20 @@ function onKeyDown(event)
             if (downPressed == false)
                 downPressed = true;
             break
+		case 73:
+			if (enemy.iStage == 0)
+			{
+				enemy.iStage = 1;
+				break;
+			}
+		case 49:
+		case 50:
+		case 51: 
+			if (enemy.iStage > -1 && eDialogIdx[enemy.iStage][event.keyCode-49] != undefined) 
+			{
+				enemy.iStage = eDialogIdx[enemy.iStage][event.keyCode-49]; 
+				break;
+			}
     }
 }
 
@@ -361,6 +378,27 @@ function renderGame()
 
         currentFrame++;
 		
+		
+		//AgentCode
+		/*if (!isScrolling)
+		{
+		if (enemy.iStage > -1)
+		{
+		var sz = eDialog[enemy.iStage].length;
+		surface.fillStyle = "#2B1B17";
+		surface.globalAlpha = 0.66;
+		surface.fillRect((enemy.x+enemy.w/2)-(5*eDialog[enemy.iStage][0].length)-5,enemy.y-(16*(sz+1)),(5*eDialog[enemy.iStage][0].length)*2+2,(16*sz)+7);	
+		surface.globalAlpha = 1.0;
+		surface.font = "16px Courier New";
+		surface.fillStyle = "white";
+		for (var i = 0; i < sz; i++)
+		{
+			surface.fillText(eDialog[enemy.iStage][i],(enemy.x+enemy.w/2)-(5*eDialog[enemy.iStage][0].length),enemy.y-(16*(sz-i)));	
+		}
+		}
+		}
+	_textLevel.innerHTML = "Dialog Level: "+enemy.iStage;
+		*/
 		//Enemies Code
 		if (!isScrolling)
 	{
@@ -372,7 +410,12 @@ function renderGame()
 		}
 		for (var i = 0; i < bullets.length; i++)
 			surface.drawImage(bullets[i].img, bullets[i].x, bullets[i].y);
+		
+		
+	
+		
 	}
+	
 	//Enemies Code End
 	
 	
@@ -396,14 +439,7 @@ function renderGame()
  }*/
 
 
-function updatePlayerBounds()
-{
-    // Creating the 4 individual bounding boxes for the player
-    player.left = {l:player.x, r:player.x+6, t:player.y+8, b:player.y+player.h-8 };
-    player.right = {l:player.x+player.w-6, r:player.x+player.w, t:player.y+8, b:player.y+player.h-8 };
-    player.top = {l:player.x+8, r:player.x+player.w-8, t:player.y, b:player.y+6};
-    player.bottom = {l:player.x+8, r:player.x+player.w-8, t:player.y+player.h-6, b:player.y+player.h };
-}
+
 
 function checkCollision()
 {
@@ -570,7 +606,7 @@ function enterGame()
     console.log("Entering game state.");
     activeBtns = [  buttons[2], buttons[3], buttons[4] ];
 	
-	}
+}
 
 function updateGame()
 {

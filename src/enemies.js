@@ -22,11 +22,38 @@ enemies[2] = {img:null, x:500, y:320, w:32, h:48, speed:4, dx:0, dy:0, currWP:0,
 			 
 var bullets = [];
 
+//Enemies
+function updatePlayerBounds()
+{
+    // Creating the 4 individual bounding boxes for the player
+    player.left = {l:player.x, r:player.x+6, t:player.y+8, b:player.y+player.h-8 };
+    player.right = {l:player.x+player.w-6, r:player.x+player.w, t:player.y+8, b:player.y+player.h-8 };
+    player.top = {l:player.x+8, r:player.x+player.w-8, t:player.y, b:player.y+6};
+    player.bottom = {l:player.x+8, r:player.x+player.w-8, t:player.y+player.h-6, b:player.y+player.h };
+}
 
 function enemyUpdate()
 {
 	_textRange.style.color = "Red";
 	_textLOS.style.color = "Red";
+	
+	//AgentCode
+	/*if (calcDistance(enemy.x, player.x, enemy.y, player.y) <= enemy.range)
+	{
+		_textRange.style.color = "Green";
+		if (enemy.iStage == -1)
+			enemy.iStage = 0;
+	}
+	else
+	{
+		_textRange.style.color = "Red";
+		enemy.iStage = -1;
+		enemy.x += enemy.dx;
+		enemy.y += enemy.dy;
+	}*/
+	//End AgentCode
+	
+	
 	// Move the enemy.
 	this.x += this.dx;
 	this.y += this.dy;
