@@ -31,8 +31,7 @@ var currState = -1;
 
 
 
-//Madalyn
-//Play the music for the game.
+/*//Play the music for the game.
 var sound = new Howl({
   src: ['../sound/music/zizibum.mp3'],
   autoplay: true,
@@ -45,7 +44,7 @@ var sound2 = new Howl({
   src: ['../sound/music/zizibum.mp3'],
   volume: 0.1,
 });
-//sound2.play();
+//sound2.play();*/
 //End playing the music for the game.
 
 var activeBtns = [];
@@ -84,6 +83,13 @@ player.img.src = "../img/tiles/player.png";
 player.lastX = player.currX = player.x;
 player.lastY = player.currY = player.y;
 
+//torch object
+var torch_sprite = {
+    x:50,
+    y:50,
+};
+
+
 //GUI
 var currentHealth= 30;
 
@@ -98,6 +104,7 @@ var upPressed = false;
 var downPressed = false;
 
 var mouse = {x:0, y:0};
+
 
 function onKeyDown(event)
 {
@@ -350,7 +357,7 @@ function renderGame()
 	//animation
 	surface.drawImage(torch, 
 						  0, shift, frameWidth, frameHeight,
-						  torch.x=305, torch.y=320, frameWidth, frameHeight);  //coordinates of the torch
+						  torch_sprite.x, torch_sprite.y, frameWidth, frameHeight);  //coordinates of the torch
 
         shift = currentFrame * (frameHeight);
 
@@ -480,9 +487,10 @@ function scrollLevel(){
         {
             for (var col = 0; col < sceneColumns; col++)
             {
-                scene[row][col].y += scrollSpeed;
+                scene[row][col].y += scrollSpeed;				
             }
         }
+		torch_sprite.y += scrollSpeed;
         isScrollingUp = false;
     }
 
@@ -491,9 +499,10 @@ function scrollLevel(){
         {
             for (var col = 0; col < sceneColumns; col++)
             {
-                scene[row][col].x -= scrollSpeed;
-            }
-        }
+                scene[row][col].x -= scrollSpeed;				
+			}
+        }	
+		torch_sprite.x -= scrollSpeed;		
         isScrollingRight = false;
     }
 
@@ -502,10 +511,11 @@ function scrollLevel(){
         {
             for (var col = 0; col < sceneColumns; col++)
             {
-                scene[row][col].y -= scrollSpeed;
+                scene[row][col].y -= scrollSpeed;						
             }
         }
-        isScrollingDown = false;
+				torch_sprite.y -= scrollSpeed;
+		        isScrollingDown = false;
     }
 
     if (isScrollingLeft == true){
@@ -513,12 +523,12 @@ function scrollLevel(){
         {
             for (var col = 0; col < sceneColumns; col++)
             {
-                scene[row][col].x += scrollSpeed;
+                scene[row][col].x += scrollSpeed;								
             }
-        }
+        }		
+		torch_sprite.x += scrollSpeed;
         isScrollingLeft = false;
     }
-
     isScrolling = false;
 }
 
