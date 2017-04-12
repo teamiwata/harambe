@@ -33,7 +33,7 @@ var currState = -1;
 
 /*//Play the music for the game.
 var sound = new Howl({
-  src: ['../sound/music/zizibum.mp3'],
+  src: ['../sound/sounds/zizibum.ogg'],
   autoplay: true,
   loop: true,
   volume: 0.1,
@@ -41,7 +41,7 @@ var sound = new Howl({
 //sound.play();
 
 var sound2 = new Howl({
-  src: ['../sound/music/zizibum.mp3'],
+  src: ['../sound/sounds/zizibum.ogg'],
   volume: 0.1,
 });
 //sound2.play();*/
