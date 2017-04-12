@@ -75,7 +75,7 @@ function loadImage(e) {
 
 //player object
 var player = {
-    x:canvas.width/2, y:canvas.height/2, w:SIZE, h:SIZE, img:new Image(), playerSpeed: 4,
+    x:80, y:80, w:SIZE, h:SIZE, img:new Image(), playerSpeed: 4,
     left: null, right: null, top: null, bottom: null,   //bounding boxes for collision
 	lastX:null, lastY:null, currX:null, currY:null,     // Enemy requirements
     colL:false, colR:false, colT:false, colB:false};    //true when player collides
@@ -372,35 +372,35 @@ function loadScene(_scene){
                 tile.w = SIZE;
                 tile.h = SIZE;
                 scene[row][col] = tile;
-                obstacleArray.push(tile);
+                //obstacleArray.push(tile);
             }
 			else if(_scene[row][col] == 10){
                 tile.img = BOAT2;
                 tile.w = SIZE;
                 tile.h = SIZE;
                 scene[row][col] = tile;
-                obstacleArray.push(tile);
+                //obstacleArray.push(tile);
             }
 			else if(_scene[row][col] == 11){
                 tile.img = BOAT3;
                 tile.w = SIZE;
                 tile.h = SIZE;
                 scene[row][col] = tile;
-                obstacleArray.push(tile);
+                //obstacleArray.push(tile);
             }
 			else if(_scene[row][col] == 12){
                 tile.img = BOAT4;
                 tile.w = SIZE;
                 tile.h = SIZE;
                 scene[row][col] = tile;
-                obstacleArray.push(tile);
+                //obstacleArray.push(tile);
             }
 			else if(_scene[row][col] == 13){
                 tile.img = STORE;
                 tile.w = SIZE;
                 tile.h = SIZE;
                 scene[row][col] = tile;
-                obstacleArray.push(tile);
+                //obstacleArray.push(tile);
             }
 			else if(_scene[row][col] == 14){
                 tile.img = RESPAWN;
