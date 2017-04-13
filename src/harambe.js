@@ -931,8 +931,8 @@ function drawHealthbar(canvas, x, y, width, height, _currentHealth, max_health) 
 
 
 //Inventory Buttons
-var button = document.querySelector("button");
-button.addEventListener("click", clickHandler, false);
+//var button = document.querySelector("button");
+//button.addEventListener("click", clickHandler, false);
 
 function clickHandler() {
     inventory[0] += 1;
