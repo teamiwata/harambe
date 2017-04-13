@@ -42,6 +42,12 @@ var sound = new Howl({
   mute: false,
 });
 
+var sound2 = new Howl({
+  src: ['../sound/sounds/smb_bump.wav'],
+  volume: 0.07,
+  mute: false,
+});
+
 var boolmutesound = false;
 
 function muteSound()
@@ -63,10 +69,6 @@ function muteSound()
 }
 //sound.play();
 /*
-var sound2 = new Howl({
-  src: ['../sound/sounds/zizibum.ogg'],
-  volume: 0.1,
-});
 //sound2.play();*/
 //End playing the music for the game.
 
@@ -98,7 +100,7 @@ function loadImage(e) {
 
 //player object
 var player = {
-    x:80, y:80, w:SIZE, h:SIZE, img:new Image(), playerSpeed: 4,
+    x:130, y:130, w:SIZE, h:SIZE, img:new Image(), playerSpeed: 4,
     left: null, right: null, top: null, bottom: null,   //bounding boxes for collision
 	lastX:null, lastY:null, currX:null, currY:null,     // Enemy requirements
     colL:false, colR:false, colT:false, colB:false};    //true when player collides
@@ -577,6 +579,7 @@ function checkCollision()
         {
             player.x = obstacleArray[i].x+obstacleArray[i].w; // This first line will bounce the player back to just touching the wall.
             player.colL = true; // Sets the respective collision flag to true.
+			sound2.play();
         }
         if (!(player.right.l > obstacleArray[i].x+obstacleArray[i].w ||
             player.right.r < obstacleArray[i].x ||
@@ -585,6 +588,7 @@ function checkCollision()
         {
             player.x = obstacleArray[i].x-player.w;
             player.colR = true;
+			sound2.play();
         }
         if (!(player.top.l > obstacleArray[i].x+obstacleArray[i].w ||
             player.top.r < obstacleArray[i].x ||
@@ -593,6 +597,7 @@ function checkCollision()
         {
             player.y = obstacleArray[i].y+obstacleArray[i].h;
             player.colT = true;
+			sound2.play();
         }
         if (!(player.bottom.l > obstacleArray[i].x+obstacleArray[i].w ||
             player.bottom.r < obstacleArray[i].x ||
@@ -601,6 +606,7 @@ function checkCollision()
         {
             player.y = obstacleArray[i].y-player.h;
             player.colB = true;
+			sound2.play();
         }
     }
 }
