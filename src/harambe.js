@@ -879,6 +879,9 @@ function renderButtons()
 function onStartClick()
 {
     changeState(1);
+	document.getElementById("textBox").style.display = "block";
+	document.getElementById("close").style.display = "block";
+	document.getElementById("Scoreboard").style.display = "block";
 }
 
 function onHelpClick()
@@ -889,6 +892,7 @@ function onHelpClick()
 function onExitGameClick()
 {
         changeState(0);
+		document.getElementById("Scoreboard").style.display = "none";
 }
 
 function onExitHelpClick(){

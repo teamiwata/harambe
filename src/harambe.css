@@ -4,6 +4,7 @@ body {
 
 #stage
 {
+	position: relative;
     width: 640px;
     height: 800px;
     margin-left: auto;
@@ -69,4 +70,7 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	display: inline;
+}
+#close:hover{
+	cursor: url('../img/cursors/cursor.png'), auto;
 }

@@ -12,6 +12,18 @@
 
 <div id="stage">
     <canvas></canvas>
+	<div id="container">
+	<canvas id="textBox" width="640" height="800" style="position:absolute; border:1px solid #000000; top:0px; left:0px; display:none;"></canvas>
+	<button id="close" style="position: absolute; top:610px; left:570px; display:none;" onclick="hideText()">Close</button>
+	</div>
+</div>
+<div id="Scoreboard" style="position: absolute; top:0px; left:0px; display:none;">
+<b><p id="Scorehead"></p></b>
+<p id="Deaths">Death Count: 0</p>
+<button id="CountDeath">Death Counter</button>
+<p id="CageOpen">Opened Cages: 0</p>
+<button id="CountCage">Cage Counter</button>
+<p id="NumAnimal">Animals Saved: 0</p>
 </div>
 <br>
 <div id="tray">
@@ -31,6 +43,8 @@
 
 </body>
 <script src="howler.core.js"></script>
+<script src="Scoreboard.js"></script>
+<script src="Introduction.js"></script>
 <script src="canvas.js"></script>
 <script src="enemies.js"></script>
 <script src="agent.js"></script>
