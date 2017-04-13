@@ -12,7 +12,7 @@ introText.font="30px Arial";
 introText.fillText("Twenty years after the death of Harambe,",10,85); 
 introText.fillText("Donald Trump created an island zoo. This",10,115);
 introText.fillText("island zoo is called the New Cincinnati Zoo.",10,145); 
-introText.fillText("This zoo is devided up into four islands",10,175); 
+introText.fillText("This zoo is divided up into four islands",10,175); 
 introText.fillText("composed of different animal exhibits ranging",10,205); 
 introText.fillText("from mammals, reptiles, aquatic species and",10,235); 
 introText.fillText("insects. On the grand opening of the New",10,265);
