@@ -1,4 +1,3 @@
-
 const SIZE=32; //size of each tile
 var sceneRows = 0;
 var sceneColumns = 0;
@@ -19,12 +18,13 @@ var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png"
 	{img:"../img/menu/mojo.png", imgO:"../img/menu/mojo2.png", x:250, y:779, w:54, h:13, over:false, click:onMojo},
     {img:"../img/menu/shopmojo.png", imgO:"../img/menu/shopmojo2.png", x:350, y:779, w:54, h:13, over:false, click:shopMojo},
 	{img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitHelpClick},]; 
-
-	
 var menuBackground = new Image();
 menuBackground.src = "../img/menu/menubackground.png";
 var helpBackground = new Image();
 helpBackground.src = "../img/menu/helpbackground.png";
+var activeBtns = [];
+	
+
 	
 
 var lastState = -1;
@@ -33,69 +33,14 @@ var currState = -1;
 
 
 
-//Play the music for the game.
-var sound = new Howl({
-  src: ['../sound/music/zizibum.mp3'],
-  autoplay: true,
-  loop: true,
-  volume: 0.07,
-  mute: false,
-});
-
-var sound2 = new Howl({
-  src: ['../sound/sounds/smb_bump.wav'],
-  volume: 0.07,
-  mute: false,
-});
-
-var boolmutesound = false;
-
-function muteSound()
-{
-	if (boolmutesound == true)
-	{
-		sound.mute(false);
-		document.getElementById("mutesound").innerHTML = "Mute Sound";
-		boolmutesound = false;
-	}
-	
-	else if (boolmutesound == false)
-	{
-		sound.mute(true);
-		document.getElementById("mutesound").innerHTML = "Unmute Sound";
-		boolmutesound = true;
-	}
-	
-}
-//sound.play();
-/*
-//sound2.play();*/
-//End playing the music for the game.
-
-var activeBtns = [];
-
 var updateIval;
 
-//map array
-var scene =[];
+
 
 //obstacle array. stores impassable tile objects
 var obstacleArray =[];
 
-//animation scripts
-function loadImage(e) {
-        animate();
-    }
 
-    var shift = 0;
-    var frameWidth = 32;
-    var frameHeight = 32;
-    var totalFrames = 16;
-    var currentFrame = 0;
-
-    function animate() {
-               
-    }
 
 
 //player object
@@ -108,66 +53,6 @@ player.img.src = "../img/tiles/player.png";
 player.lastX = player.currX = player.x;
 player.lastY = player.currY = player.y;
 
-//torch object
-var torch_sprite = {
-    x:50,
-    y:50,
-};
-
-var torch_sprite1 = {
-    x:100,
-    y:100,
-};
-
-var torch_sprite2 = {
-    x:200,
-    y:200,
-};
-
-var torch_sprite3 = {
-    x:400,
-    y:400,
-};
-
-var torch_sprite4 = {
-    x:800,
-    y:800,
-};
-
-var torch_sprite5 = {
-    x:1600,
-    y:1600,
-};
-
-var torch_sprite6 = {
-    x:100,
-    y:50,
-};
-
-var torch_sprite7 = {
-    x:200,
-    y:100,
-};
-
-var torch_sprite8 = {
-    x:400,
-    y:200,
-};
-
-var torch_sprite9 = {
-    x:800,
-    y:400,
-};
-
-var torch_sprite10 = {
-    x:1600,
-    y:800,
-};
-
-var torch_sprite11 = {
-    x:1300,
-    y:1600,
-};
 
 
 
@@ -449,60 +334,8 @@ function renderGame()
         for (var col = 0; col < sceneColumns; col++){
             surface.drawImage(scene[row][col].img, scene[row][col].x, scene[row][col].y); //draw image property/object of each element
         }
-	//animation
-	surface.drawImage(torch, 
-						  0, shift, frameWidth, frameHeight,
-						  torch_sprite.x, torch_sprite.y, frameWidth, frameHeight);  //coordinates of the torch
-	surface.drawImage(torch, 
-						  0, shift, frameWidth, frameHeight,
-						  torch_sprite1.x, torch_sprite1.y, frameWidth, frameHeight);
-						  
-	surface.drawImage(torch, 
-						  0, shift, frameWidth, frameHeight,
-						  torch_sprite2.x, torch_sprite2.y, frameWidth, frameHeight);	
-
-	surface.drawImage(torch, 
-						  0, shift, frameWidth, frameHeight,
-						  torch_sprite3.x, torch_sprite3.y, frameWidth, frameHeight);  //coordinates of the torch
-	surface.drawImage(torch, 
-						  0, shift, frameWidth, frameHeight,
-						  torch_sprite4.x, torch_sprite4.y, frameWidth, frameHeight);
-						  
-	surface.drawImage(torch, 
-						  0, shift, frameWidth, frameHeight,
-						  torch_sprite5.x, torch_sprite5.y, frameWidth, frameHeight);	
-
-	surface.drawImage(torch, 
-						  0, shift, frameWidth, frameHeight,
-						  torch_sprite6.x, torch_sprite.y, frameWidth, frameHeight);  //coordinates of the torch
-	surface.drawImage(torch, 
-						  0, shift, frameWidth, frameHeight,
-						  torch_sprite7.x, torch_sprite1.y, frameWidth, frameHeight);
-						  
-	surface.drawImage(torch, 
-						  0, shift, frameWidth, frameHeight,
-						  torch_sprite8.x, torch_sprite2.y, frameWidth, frameHeight);	
-
-	surface.drawImage(torch, 
-						  0, shift, frameWidth, frameHeight,
-						  torch_sprite9.x, torch_sprite3.y, frameWidth, frameHeight);  //coordinates of the torch
-	surface.drawImage(torch, 
-						  0, shift, frameWidth, frameHeight,
-						  torch_sprite10.x, torch_sprite4.y, frameWidth, frameHeight);
-						  
-	surface.drawImage(torch, 
-						  0, shift, frameWidth, frameHeight,
-						  torch_sprite11.x, torch_sprite5.y, frameWidth, frameHeight);						  
-						  
-        shift = currentFrame * (frameHeight);
-
-        if (currentFrame == totalFrames) {
-            shift = 0;
-            currentFrame = 0;
-        }
-
-        currentFrame++;
-		
+		//animation
+	renderAnimation();
 		
 		//AgentCode
 		/*if (!isScrolling)
@@ -579,7 +412,7 @@ function checkCollision()
         {
             player.x = obstacleArray[i].x+obstacleArray[i].w; // This first line will bounce the player back to just touching the wall.
             player.colL = true; // Sets the respective collision flag to true.
-			sound2.play();
+			sound2.play();  //sound
         }
         if (!(player.right.l > obstacleArray[i].x+obstacleArray[i].w ||
             player.right.r < obstacleArray[i].x ||
@@ -588,7 +421,7 @@ function checkCollision()
         {
             player.x = obstacleArray[i].x-player.w;
             player.colR = true;
-			sound2.play();
+			sound2.play(); //sound
         }
         if (!(player.top.l > obstacleArray[i].x+obstacleArray[i].w ||
             player.top.r < obstacleArray[i].x ||
@@ -597,7 +430,7 @@ function checkCollision()
         {
             player.y = obstacleArray[i].y+obstacleArray[i].h;
             player.colT = true;
-			sound2.play();
+			sound2.play(); //sound
         }
         if (!(player.bottom.l > obstacleArray[i].x+obstacleArray[i].w ||
             player.bottom.r < obstacleArray[i].x ||
@@ -606,7 +439,7 @@ function checkCollision()
         {
             player.y = obstacleArray[i].y-player.h;
             player.colB = true;
-			sound2.play();
+			sound2.play(); //sound
         }
     }
 }
@@ -648,6 +481,7 @@ function scrollLevel(){
                 scene[row][col].y += scrollSpeed;				
             }
         }
+		//animation
 		torch_sprite.y += scrollSpeed;
 		torch_sprite1.y += scrollSpeed;
 		torch_sprite2.y += scrollSpeed;
@@ -672,6 +506,7 @@ function scrollLevel(){
                 scene[row][col].x -= scrollSpeed;				
 			}
         }	
+		//animation
 		torch_sprite.x -= scrollSpeed;
 		torch_sprite1.x -= scrollSpeed;	
 		torch_sprite2.x -= scrollSpeed;	
@@ -695,6 +530,7 @@ function scrollLevel(){
                 scene[row][col].y -= scrollSpeed;						
             }
         }
+				//animation
 				torch_sprite.y -= scrollSpeed;
 				torch_sprite1.y -= scrollSpeed;
 				torch_sprite2.y -= scrollSpeed;
@@ -718,6 +554,7 @@ function scrollLevel(){
                 scene[row][col].x += scrollSpeed;								
             }
         }		
+		//animation
 		torch_sprite.x += scrollSpeed;
 		torch_sprite1.x += scrollSpeed;
 		torch_sprite2.x += scrollSpeed;
@@ -757,11 +594,7 @@ function enterMenu()
 {
     console.log("Entering menu state.");
 	surface.clearRect(0,0,canvas.width,canvas.height);
-    activeBtns = [ buttons[0],buttons[1]];
-	//testmousover()
-	
-	
-	
+    activeBtns = [ buttons[0],buttons[1]];	
 }
 
 function updateMenu()
@@ -781,8 +614,7 @@ function exitMenu()
 function enterGame()
 {
     console.log("Entering game state.");
-    activeBtns = [  buttons[2], buttons[3], buttons[4], buttons[5], buttons[6] ];
-	
+    activeBtns = [  buttons[2], buttons[3], buttons[4], buttons[5], buttons[6] ];	
 }
 
 function updateGame()
@@ -798,7 +630,6 @@ function updateGame()
     renderGame();
     renderButtons();
     renderUI();
-	
     scrollCheck();
 	//Enemies Code
 	for (var i = 0; i < enemies.length; i++)
@@ -810,9 +641,8 @@ function updateGame()
 function exitGame()
 {
     console.log("Exiting game state.");
-
-	player.x=canvas.width/2;
-	player.y=canvas.height/2;
+	player.x=130;
+	player.y=130;
 	scene = [];
 	obstacleArray =[];
     loadScene(scene1);
@@ -912,45 +742,4 @@ function updateMouse(event)
     mouse.x = event.clientX - rect.left;
     mouse.y = event.clientY - rect.top;
 }
-
-
-
-
-//Jackson's code. This section is reserved for Jackson
-// Health Bar
-function renderUI(){
-    drawHealthbar(surface, 10, 100, 300, 30, currentHealth, 100);
-}
-
-function drawHealthbar(canvas, x, y, width, height, _currentHealth, max_health) {
-    if (_currentHealth >= max_health) {_currentHealth = max_health;}
-    if (_currentHealth <= 0) {_currentHealth = 0;}
-    canvas.fillStyle = "#000000";
-    canvas.fillRect(x, y+640, width, height);
-    var colorNumber = Math.round((1-(_currentHealth/max_health))*0xff)*0x10000 + Math.round((_currentHealth/max_health)*0xff)*0x100;
-    var colorString = colorNumber.toString (16);
-    if (colorNumber >= 0x100000){
-        canvas.fillStyle = '#'+ colorString;
-    }
-    else if (colorNumber << 0x100000 && colorNumber >= 0x10000){
-        canvas.fillStyle = '#0'+ colorString;
-    }
-    else if (colorNumber << 0x1000){
-        canvas.fillStyle = '#00'+ colorString;
-    }
-    canvas.fillRect(x+1, y+1+640, (_currentHealth/max_health)*(width-2), height-2);
-}
-
-
-//Inventory Buttons
-//var button = document.querySelector("button");
-//button.addEventListener("click", clickHandler, false);
-
-function clickHandler() {
-    inventory[0] += 1;
-	banana.message = inventory[0];
-	inventory[1] += 1;
-	mojo.message = inventory[0];
-}
-var textarea = document.querySelector("textarea");
 
