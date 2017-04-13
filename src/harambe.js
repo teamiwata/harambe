@@ -31,15 +31,36 @@ var currState = -1;
 
 
 
-/*//Play the music for the game.
+//Play the music for the game.
 var sound = new Howl({
-  src: ['../sound/sounds/zizibum.ogg'],
+  src: ['../sound/music/zizibum.mp3'],
   autoplay: true,
   loop: true,
-  volume: 0.1,
+  volume: 0.07,
+  mute: false,
 });
-//sound.play();
 
+var boolmutesound = false;
+
+function muteSound()
+{
+	if (boolmutesound == true)
+	{
+		sound.mute(false);
+		document.getElementById("mutesound").innerHTML = "Mute Sound";
+		boolmutesound = false;
+	}
+	
+	else if (boolmutesound == false)
+	{
+		sound.mute(true);
+		document.getElementById("mutesound").innerHTML = "Unmute Sound";
+		boolmutesound = true;
+	}
+	
+}
+//sound.play();
+/*
 var sound2 = new Howl({
   src: ['../sound/sounds/zizibum.ogg'],
   volume: 0.1,

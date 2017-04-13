@@ -12,6 +12,15 @@ body {
     cursor: url('../img/cursors/cursor.png'), auto;
 }
 
+.wrapper {
+    text-align: center;
+}
+
+.button {
+    position: absolute;
+    top: 50%;
+}
+
 #buttons
 {
 	width: 100px;
