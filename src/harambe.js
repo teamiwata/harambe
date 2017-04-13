@@ -15,7 +15,9 @@ var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png"
     {img:"../img/menu/btnHelp.png", imgO:"../img/menu/btnHelpO.png", x:100, y:720, w:128, h:32, over:false, click:onHelpClick}, // Help button
     {img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:520, y:750, w:128, h:32, over:false, click:onExitGameClick},
 	{img:"../img/menu/bananas.png", imgO:"../img/menu/bananas2.png", x:6, y:779, w:54, h:13, over:false, click:onBananas},
+    {img:"../img/menu/shopbananas.png", imgO:"../img/menu/shopbananas2.png", x:106, y:779, w:54, h:13, over:false, click:shopBananas},// Placeholder until shop is done
 	{img:"../img/menu/mojo.png", imgO:"../img/menu/mojo2.png", x:250, y:779, w:54, h:13, over:false, click:onMojo},
+    {img:"../img/menu/shopmojo.png", imgO:"../img/menu/shopmojo2.png", x:350, y:779, w:54, h:13, over:false, click:shopMojo},
 	{img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitHelpClick},]; 
 
 	
@@ -773,7 +775,7 @@ function exitMenu()
 function enterGame()
 {
     console.log("Entering game state.");
-    activeBtns = [  buttons[2], buttons[3], buttons[4] ];
+    activeBtns = [  buttons[2], buttons[3], buttons[4], buttons[5], buttons[6] ];
 	
 }
 
@@ -815,7 +817,7 @@ function enterHelp()
 {
     console.log("Entering help state.");
     surface.clearRect(0,0,canvas.width,canvas.height);
-    activeBtns = [ buttons[5]];
+    activeBtns = [ buttons[7]];
 }
 
 function updateHelp()

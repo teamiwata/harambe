@@ -24,14 +24,32 @@ function onBananas()
 	banana.message = inventory[0];
 	}
 }
+
+function shopBananas()
+{
+    if ( (inventory[0] >= 0) && (currentHealth <= 100))
+    {
+        inventory[0] += 1;
+        banana.message = inventory[0];
+    }
+}
 function onMojo()
 {
-	if ( (inventory[1] > 0) && (currentHealth < 100))
-	{
-	currentHealth += 50;
-	inventory[1] -= 1;
-	mojo.message = inventory[1];
-	}
+    if ( (inventory[1] > 0) && (currentHealth < 100))
+    {
+        currentHealth += 50;
+        inventory[1] -= 1;
+        mojo.message = inventory[1];
+    }
+}
+
+function shopMojo()
+{
+    if ( (inventory[1] > 0) && (currentHealth < 100))
+    {
+        inventory[1] += 1;
+        mojo.message = inventory[1];
+    }
 }
 
 function getBananaTextBox()
