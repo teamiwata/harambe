@@ -8,7 +8,10 @@ var assetsLoaded = 0;
 
 var states = [{enter: enterMenu, update: updateMenu, exit: exitMenu}, 	// Main menu state.
 			{enter: enterGame, update: updateGame, exit: exitGame}, 	// Game state.
-			{enter: enterHelp, update: updateHelp, exit: exitHelp}];	// Help state.
+			{enter: enterHelp, update: updateHelp, exit: exitHelp},
+            {enter: enterWinGame, update: updateWinGame, exit: exitWinGame},
+			];	// Help state.
+
 	
 var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png", x:400, y:720, w:128, h:32, over:false, click:onStartClick}, // Start button
     {img:"../img/menu/btnHelp.png", imgO:"../img/menu/btnHelpO.png", x:100, y:720, w:128, h:32, over:false, click:onHelpClick}, // Help button
@@ -22,6 +25,10 @@ var menuBackground = new Image();
 menuBackground.src = "../img/menu/menubackground.png";
 var helpBackground = new Image();
 helpBackground.src = "../img/menu/helpbackground.png";
+var winBackground = new Image();
+winBackground.src = "../img/menu/winbackground.png";
+
+
 var activeBtns = [];
 	
 
@@ -627,6 +634,7 @@ function updateGame()
     checkInput();
     //moveTiles();
     checkCollision();
+    bC();
     renderGame();
     renderButtons();
     renderUI();
@@ -669,6 +677,30 @@ function exitHelp()
 {
     console.log("Exiting help state.");
 }
+
+
+function enterWinGame()
+{
+    activeBtns=[];
+    console.log("enter win game");
+    music.mute(true);
+    music2.play();
+}
+
+function updateWinGame()
+{
+
+    surface.drawImage(winBackground, 0, 0);
+    console.log("update win game");
+}
+
+function exitWinGame()
+{
+    console.log("exit win game");
+}
+
+
+
 
 function checkButtons()
 {
@@ -743,3 +775,87 @@ function updateMouse(event)
     mouse.y = event.clientY - rect.top;
 }
 
+
+
+
+
+var boat= false;
+var nails = false;
+var sail = false;
+var hammer = false;
+
+var music2 = new Howl({
+    src: ['../sound/music/6819305_retro-soldiers_by_depard_preview.mp3'], //Play the music for the game.
+    autoplay: false,
+    loop: true,
+    volume: 0.07,
+    mute: false,
+});
+
+
+var ISound = new Howl({
+    src: ['../sound/sounds/smb_1-up.wav'],
+    volume: 1,
+    mute: false,
+});
+
+function bC()
+{
+    if(boat == false){
+
+        if (!( player.y > scene[28][6].y + 32 || player.y +32 < scene[28][6].y
+            || player.x > scene[28][6].x + 32 || player.x + 44 < scene[28][6].x )) {
+            boat = true;
+            ISound.play();
+            console.log(boat);
+            scene[28][6].img = GRASS;
+        }
+
+    }
+
+    if(nails == false){
+
+        if (!( player.y > scene[51][17].y + 32 || player.y +32 < scene[51][17].y
+            || player.x > scene[51][17].x + 32 || player.x + 44 < scene[51][17].x )) {
+            nails = true;
+            ISound.play();
+            console.log(nails);
+            scene[51][17].img = GRASS;
+        }
+
+    }
+
+    if(sail == false){
+
+        if (!( player.y > scene[37][46].y + 32 || player.y +32 < scene[37][46].y
+            || player.x > scene[37][46].x + 32 || player.x + 44 < scene[37][46].x)) {
+            sail = true;
+            ISound.play();
+            console.log(sail);
+            scene[37][46].img = GRASS;
+        }
+
+    }
+
+    if(hammer == false){
+
+        if (!( player.y > scene[18][56].y + 32 || player.y +32 < scene[18][56].y
+            || player.x > scene[18][56].x + 32 || player.x + 44 < scene[18][56].x )) {
+            hammer = true;
+            ISound.play();
+            console.log(hammer);
+            scene[18][56].img = GRASS;
+        }
+
+    }
+
+
+    if(boat==true && nails==true && sail==true && hammer==true ){
+
+        if (!( player.y > scene[55][56].y + 32 || player.y +32 < scene[55][56].y
+            || player.x > scene[55][56].x + 32 || player.x + 44 < scene[55][56].x )) {
+            changeState(3);
+        }
+
+    }
+}
