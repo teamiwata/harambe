@@ -3,7 +3,7 @@ var sceneRows = 0;
 var sceneColumns = 0;
 
 window.addEventListener("load", loadAssets);
-var numAssets = 18;
+var numAssets = 19;
 var assetsLoaded = 0;
 
 var states = [{enter: enterMenu, update: updateMenu, exit: exitMenu}, 	// Main menu state.
@@ -17,7 +17,10 @@ var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png"
     {img:"../img/menu/shopbananas.png", imgO:"../img/menu/shopbananas2.png", x:106, y:779, w:54, h:13, over:false, click:shopBananas},// Placeholder until shop is done
 	{img:"../img/menu/mojo.png", imgO:"../img/menu/mojo2.png", x:250, y:779, w:54, h:13, over:false, click:onMojo},
     {img:"../img/menu/shopmojo.png", imgO:"../img/menu/shopmojo2.png", x:350, y:779, w:54, h:13, over:false, click:shopMojo},
-	{img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitHelpClick},]; 
+	{img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitHelpClick},
+    {img:"../img/menu/MuteM.png", imgO:"../img/menu/MuteM2.png", x:250, y:720, w:128, h:32, over:false, click:muteMusic},
+    {img:"../img/menu/MuteS.png", imgO:"../img/menu/MuteS2.png", x:40, y:720, w:128, h:32, over:false, click:muteSound}]; // Button to Mute Music
+
 var menuBackground = new Image();
 menuBackground.src = "../img/menu/menubackground.png";
 var helpBackground = new Image();
@@ -653,7 +656,7 @@ function enterHelp()
 {
     console.log("Entering help state.");
     surface.clearRect(0,0,canvas.width,canvas.height);
-    activeBtns = [ buttons[7]];
+    activeBtns = [ buttons[7], buttons[8], buttons[9]];
 }
 
 function updateHelp()

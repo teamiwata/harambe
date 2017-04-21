@@ -1,6 +1,6 @@
 //Scoreboard div
 document.getElementById("Scoreboard").style.backgroundColor = "blue";
-document.getElementById("Scoreboard").style.height = "250px";
+document.getElementById("Scoreboard").style.height = "275px";
 document.getElementById("Scoreboard").style.width = "150px";
 
 //Scoreboard Header
@@ -21,6 +21,15 @@ function DisplayDeathCount(){
 	death++;
 	document.getElementById("Deaths").innerHTML = "Death Count: " + death;
 }
+// Money
+var money = 100;
+
+document.getElementById("Money").style.color = "lightblue";
+function displayMoney () {
+	money++
+	document.getElementById("Money").innerHTML = "Money: " + money;
+}
+// Jackson Was here
 
 //Number of Cages and Animals
 var cage = 0;
