@@ -18,7 +18,7 @@ var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png"
 	{img:"../img/menu/mojo.png", imgO:"../img/menu/mojo2.png", x:250, y:779, w:54, h:13, over:false, click:onMojo},
     {img:"../img/menu/shopmojo.png", imgO:"../img/menu/shopmojo2.png", x:350, y:779, w:54, h:13, over:false, click:shopMojo},
 	{img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitHelpClick},
-    {img:"../img/menu/MuteM.png", imgO:"../img/menu/MuteM2.png", x:200, y:720, w:128, h:32, over:false, click:muteMusic},
+    {img:"../img/menu/MuteM.png", imgO:"../img/menu/MuteM2.png", x:250, y:720, w:128, h:32, over:false, click:muteMusic},
     {img:"../img/menu/MuteS.png", imgO:"../img/menu/MuteS2.png", x:40, y:720, w:128, h:32, over:false, click:muteSound}]; // Button to Mute Music
 
 var menuBackground = new Image();
