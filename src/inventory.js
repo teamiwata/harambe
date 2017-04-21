@@ -24,30 +24,40 @@ function onBananas()
 	banana.message = inventory[0];
 	}
 }
-
+/* // Kill Button Just in case
+function kill() {
+	if (currentHealth > 0)
+	currentHealth -= 20;
+	
+}
+*/
 function shopBananas()
 {
-    if ( (inventory[0] >= 0) && (currentHealth <= 100))
+    if ( (inventory[0] >= 0) && (currentHealth <= 100) && (money > 0) )
     {
         inventory[0] += 1;
+		money -= 11;
+		displayMoney();
         banana.message = inventory[0];
     }
 }
 function onMojo()
 {
-    if ( (inventory[1] > 0) && (currentHealth < 100))
+    if ( (inventory[1] > 0) && (currentHealth < 100) )
     {
         currentHealth += 50;
-        inventory[1] -= 1;
+        inventory[1] -= 1; 
         mojo.message = inventory[1];
     }
 }
 
 function shopMojo()
 {
-    if ( (inventory[1] > 0) && (currentHealth < 100))
+    if ( (inventory[1] > 0) && (currentHealth < 100) && (money > 0))
     {
         inventory[1] += 1;
+		money -= 21 // Money subtaction 
+		displayMoney();
         mojo.message = inventory[1];
     }
 }
