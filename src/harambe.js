@@ -323,7 +323,7 @@ function loadScene(_scene){
                 tile.w = SIZE;
                 tile.h = SIZE;
                 scene[row][col] = tile;
-                //obstacleArray.push(tile);
+                obstacleArray.push(tile);
             }
 			else if(_scene[row][col] == 14){
                 tile.img = RESPAWN;
