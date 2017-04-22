@@ -1,6 +1,5 @@
 var music = new Howl({
   src: ['../sound/music/zizibum.mp3'], //Play the music for the game.
-  autoplay: true,
   loop: true,
   volume: 0.07,
   mute: false,
@@ -12,6 +11,20 @@ var sound2 = new Howl({
   mute: false,
 });
 
+var music2 = new Howl({
+    src: ['../sound/music/6819305_retro-soldiers_by_depard_preview.mp3'], //Play the music for the game.
+    autoplay: false,
+    loop: true,
+    volume: 0.07,
+    mute: false,
+});
+
+
+var ISound = new Howl({
+    src: ['../sound/sounds/smb_1-up.wav'],
+    volume: 1,
+    mute: false,
+});
 
 
 
@@ -21,12 +34,14 @@ function muteMusic() //Mute/UnMute Music
 	if (boolmutemusic == true)
 	{
 		music.mute(false);
+		music2.mute(false);
 		document.getElementById("mutemusic").innerHTML = "Mute Music";
 		boolmutesound = false;
 	}
 	else if (boolmutemusic == false)
 	{
 		music.mute(true);
+		music2.mute(true);
 		document.getElementById("mutemusic").innerHTML = "Unmute Music";
 		boolmutemusic = true;
 	}
@@ -52,10 +67,12 @@ function muteSound() // Mute/UnMute Sound Effects
 function boolSoundTrue() //Place all sounds in here to mute.
 {
 	sound2.mute(true);
+	ISound.mute(true);
 }
 function boolSoundFalse() //Place all sounds in here to unmute.
 {
 	sound2.mute(false);
+	ISound.mute(false);
 }
 
 

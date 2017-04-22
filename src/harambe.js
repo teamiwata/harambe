@@ -22,7 +22,8 @@ var buttons = [{img:"../img/menu/btnStart.png", imgO:"../img/menu/btnStartO.png"
     {img:"../img/menu/shopmojo.png", imgO:"../img/menu/shopmojo2.png", x:350, y:779, w:54, h:13, over:false, click:shopMojo},
 	{img:"../img/menu/btnExit.png", imgO:"../img/menu/btnExitO.png", x:448, y:720, w:128, h:32, over:false, click:onExitHelpClick},
     {img:"../img/menu/MuteM.png", imgO:"../img/menu/MuteM2.png", x:250, y:720, w:128, h:32, over:false, click:muteMusic},
-    {img:"../img/menu/MuteS.png", imgO:"../img/menu/MuteS2.png", x:40, y:720, w:128, h:32, over:false, click:muteSound}]; // Button to Mute Music
+    {img:"../img/menu/MuteS.png", imgO:"../img/menu/MuteS2.png", x:40, y:720, w:128, h:32, over:false, click:muteSound}, // Button to Mute Music
+	{img:"../img/menu/Restart.png", imgO:"../img/menu/Restart2.png", x:400, y:720, w:128, h:32, over:false, click:restartGame}]; // Restart
 
 var menuBackground = new Image();
 menuBackground.src = "../img/menu/menubackground.png";
@@ -39,7 +40,8 @@ var activeBtns = [];
 
 var lastState = -1;
 var currState = -1;
-
+//var lastState = -1;
+//var currState = -1;
 
 
 
@@ -206,6 +208,7 @@ function onAssetLoad(event)
 
 function initGame()
 {
+	//changed.
     changeState(0);
 	//Enemies Code
 	for (var i = 0; i < enemies.length; i++) 
@@ -602,6 +605,8 @@ function changeState(stateToRun)
 
 function enterMenu()
 {
+	//if (!boolmutesound)
+	
     console.log("Entering menu state.");
 	surface.clearRect(0,0,canvas.width,canvas.height);
     activeBtns = [ buttons[0],buttons[1]];	
@@ -609,6 +614,7 @@ function enterMenu()
 
 function updateMenu()
 {
+	
     console.log("In menu state.");
 	surface.clearRect(0,0,canvas.width,canvas.height);
 	checkButtons();
@@ -618,6 +624,7 @@ function updateMenu()
 
 function exitMenu()
 {
+	music.play();
     console.log("Exiting menu state.");
 }
 
@@ -684,21 +691,26 @@ function exitHelp()
 
 function enterWinGame()
 {
-    activeBtns=[];
+    activeBtns=[ buttons[10]];
     console.log("enter win game");
-    music.mute(true);
+    //music.mute(true);
+	music.stop();
     music2.play();
 }
 
 function updateWinGame()
 {
 
+
     surface.drawImage(winBackground, 0, 0);
+	checkButtons();
+	renderButtons();
     console.log("update win game");
 }
 
 function exitWinGame()
 {
+	music2.stop();
     console.log("exit win game");
 }
 
@@ -770,6 +782,10 @@ function onExitHelpClick(){
 	
 	changeState(0);
 }
+function restartGame(){
+	
+	changeState(0);
+}
 
 function updateMouse(event)
 {
@@ -804,6 +820,8 @@ var ISound = new Howl({
 
 function bC()
 {
+	displayScore(boat, nails, sail, hammer);
+	
     if(boat == false){
 
         if (!( player.y > scene[28][6].y + 32 || player.y +32 < scene[28][6].y
@@ -861,4 +879,42 @@ function bC()
         }
 
     }
+}
+
+function removeElements()
+{
+		document.getElementById("Boat").setAttribute("hidden", "true");
+		document.getElementById("Nails").setAttribute("hidden", "true");
+		document.getElementById("Sail").setAttribute("hidden", "true");
+		document.getElementById("Hammer").setAttribute("hidden", "true");
+}
+
+function displayScore(boat, nails, sail, hammer)
+{
+	if (boat == true)
+	{
+		document.getElementById("Boat").removeAttribute("hidden");
+	}
+	if (nails == true)
+	{
+		document.getElementById("Nails").removeAttribute("hidden");
+	}
+	if (sail == true)
+	{
+		document.getElementById("Sail").removeAttribute("hidden");
+	}
+	if (hammer == true)
+	{
+		document.getElementById("Hammer").removeAttribute("hidden");
+	}
+	if(boat==true && nails==true && sail==true && hammer==true)
+	{
+		removeElements();
+		
+		
+		document.getElementById("Flee").removeAttribute("hidden");
+		
+    }
+
+	
 }
