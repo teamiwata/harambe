@@ -803,20 +803,6 @@ var nails = false;
 var sail = false;
 var hammer = false;
 
-var music2 = new Howl({
-    src: ['../sound/music/6819305_retro-soldiers_by_depard_preview.mp3'], //Play the music for the game.
-    autoplay: false,
-    loop: true,
-    volume: 0.07,
-    mute: false,
-});
-
-
-var ISound = new Howl({
-    src: ['../sound/sounds/smb_1-up.wav'],
-    volume: 1,
-    mute: false,
-});
 
 function bC()
 {
