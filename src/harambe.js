@@ -36,15 +36,33 @@ winBackground.src = "../img/menu/winbackground.png";
 var activeBtns = [];
 	
 //timer:
+var stopcounter = false;
 function Timer()
 {
 document.getElementById("Timer").removeAttribute("hidden");
 var counter = 0;
-var myInterval = setInterval(function () {
+var myInterval;
+myInterval = setInterval(function () {
+	if (stopcounter == true)
+	{
+		document.getElementById("Timer").innerHTML = "Timer: " + counter;
+		counter = 0;
+	}
+	else
+	{
     ++counter;
     document.getElementById("Timer").innerHTML = "Timer: " + counter;
+	}
+	
 }, 1000);
 }
+function StopTimer() {
+    stopcounter = true;
+}
+function startStopTimer() {
+    stopcounter = false;
+}
+//clearInterval(Timer);
 	
 
 var lastState = -1;
@@ -635,6 +653,9 @@ function updateMenu()
 function exitMenu()
 {
 	music.play();
+	//timer.
+	if (stopcounter == true)
+	startStopTimer();
     console.log("Exiting menu state.");
 }
 
@@ -702,11 +723,15 @@ function exitHelp()
 
 function enterWinGame()
 {
+	//timer.
+	StopTimer();
+	
     activeBtns=[ buttons[10]];
     console.log("enter win game");
     //music.mute(true);
 	music.stop();
     music2.play();
+	
 }
 
 function updateWinGame()
