@@ -26,42 +26,48 @@ var ISound = new Howl({
     mute: false,
 });
 
-
+function boolMusicTrue() //Place all sounds in here to mute.
+{
+	music.mute(true);
+	music2.mute(true);
+}
+function boolMusicFalse() //Place all sounds in here to unmute.
+{
+	music.mute(false);
+	music2.mute(false);
+}
 
 var boolmutemusic = false;
 function muteMusic() //Mute/UnMute Music
 {
+	
 	if (boolmutemusic == true)
 	{
-		music.mute(false);
-		music2.mute(false);
-		document.getElementById("mutemusic").innerHTML = "Mute Music";
-		boolmutesound = false;
+		boolMusicFalse();
+		boolmutemusic = false;
 	}
-	else if (boolmutemusic == false)
+	else //(boolmutemusic == false)
 	{
-		music.mute(true);
-		music2.mute(true);
-		document.getElementById("mutemusic").innerHTML = "Unmute Music";
+		boolMusicTrue();
 		boolmutemusic = true;
-	}
+	}	
 }
 
 var boolmutesound = false;
 function muteSound() // Mute/UnMute Sound Effects
 {
+	
 	if (boolmutesound == true)
 	{
 		boolSoundFalse();
-		document.getElementById("mutesound").innerHTML = "Mute Sound";
 		boolmutesound = false;
 	}
-	else if (boolmutesound == false)
+	else //(boolmutesound == false)
 	{
 		boolSoundTrue();
-		document.getElementById("mutesound").innerHTML = "Unmute Sound";
 		boolmutesound = true;
 	}
+	
 }
 
 function boolSoundTrue() //Place all sounds in here to mute.
