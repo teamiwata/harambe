@@ -35,7 +35,16 @@ winBackground.src = "../img/menu/winbackground.png";
 
 var activeBtns = [];
 	
-
+//timer:
+function Timer()
+{
+document.getElementById("Timer").removeAttribute("hidden");
+var counter = 0;
+var myInterval = setInterval(function () {
+    ++counter;
+    document.getElementById("Timer").innerHTML = "Timer: " + counter;
+}, 1000);
+}
 	
 
 var lastState = -1;
@@ -208,6 +217,7 @@ function onAssetLoad(event)
 
 function initGame()
 {
+	
 	//changed.
     changeState(0);
 	//Enemies Code
@@ -631,6 +641,7 @@ function exitMenu()
 function enterGame()
 {
     console.log("Entering game state.");
+	Timer();
     activeBtns = [  buttons[2], buttons[3], buttons[4], buttons[5], buttons[6] ];	
 }
 
@@ -783,7 +794,11 @@ function onExitHelpClick(){
 	changeState(0);
 }
 function restartGame(){
-	
+	boat=false;
+	nails=false;
+	sail=false;
+	hammer=false;
+	document.getElementById("Flee").setAttribute("hidden", "true");
 	changeState(0);
 }
 
