@@ -45,6 +45,7 @@ var myInterval;
 myInterval = setInterval(function () {
 	if (stopcounter == true)
 	{
+		if (counter != 0)
 		document.getElementById("Timer").innerHTML = "Timer: " + counter;
 		counter = 0;
 	}
@@ -656,6 +657,12 @@ function exitMenu()
 	//timer.
 	if (stopcounter == true)
 	startStopTimer();
+	boat=false;
+	nails=false;
+	sail=false;
+	hammer=false;
+	removeElements();
+	document.getElementById("Flee").setAttribute("hidden", "true");
     console.log("Exiting menu state.");
 }
 
@@ -696,6 +703,8 @@ function updateGame()
 function exitGame()
 {
     console.log("Exiting game state.");
+	//timer.
+	StopTimer();
 	player.x=130;
 	player.y=130;
 	scene = [];
@@ -707,6 +716,7 @@ function exitGame()
 function enterHelp()
 {
     console.log("Entering help state.");
+	StopTimer();
     surface.clearRect(0,0,canvas.width,canvas.height);
     activeBtns = [ buttons[7], buttons[8], buttons[9]];
 }
@@ -722,7 +732,6 @@ function updateHelp()
 
 function exitHelp()
 {
-	StopTimer();
     console.log("Exiting help state.");
 }
 
@@ -822,7 +831,7 @@ function onExitGameClick()
 
 function onExitHelpClick(){
 	
-	changeState(0);
+	restartGame();
 }
 function restartGame(){
 	boat=false;
