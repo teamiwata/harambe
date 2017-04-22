@@ -34,7 +34,7 @@ winBackground.src = "../img/menu/winbackground.png";
 
 
 var activeBtns = [];
-	
+var gamestarted = false;
 //timer:
 var stopcounter = false;
 function Timer()
@@ -652,15 +652,20 @@ function updateMenu()
 
 function exitMenu()
 {
-	music.play();
+	
 	//timer.
 	if (stopcounter == true)
 	startStopTimer();
     console.log("Exiting menu state.");
 }
 
+
+
 function enterGame()
 {
+	if (gamestarted == false)
+	music.play();
+	gamestarted = true;
     console.log("Entering game state.");
 	Timer();
     activeBtns = [  buttons[2], buttons[3], buttons[4], buttons[5], buttons[6] ];	
@@ -717,6 +722,7 @@ function updateHelp()
 
 function exitHelp()
 {
+	StopTimer();
     console.log("Exiting help state.");
 }
 
