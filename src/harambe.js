@@ -404,7 +404,7 @@ function renderGame()
 	{
 		for (var i = 0; i < enemies.length; i++)
 		{
-			surface.drawImage(enemies[i].img, enemies[i].x, enemies[i].y);
+			//surface.drawImage(enemies[i].img, enemies[i].x, enemies[i].y);
 			for (var j = 0; j < enemies[i].linecasts.length; j++)
 				surface.drawImage(tileImages[5], enemies[i].linecasts[j].x, enemies[i].linecasts[j].y);
 		}
@@ -762,6 +762,7 @@ function updateWinGame()
 function exitWinGame()
 {
 	music2.stop();
+	gamestarted = false;
     console.log("exit win game");
 }
 
